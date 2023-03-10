@@ -84,6 +84,7 @@
     <Compile Include="Systems\IUpdateSystems.cs" />
     <Compile Include="Systems\SystemRender.cs" />
     <Compile Include="Utility\LoadVerts.cs" />
+    <Compile Include="Utility\RenderTextOnScreen.cs" />
     <Compile Include="Utility\Shader.cs" />
   </ItemGroup>
   <ItemGroup>
