@@ -8,7 +8,7 @@ public class Whois
     public static Dictionary<int,string> ScoresOnTheDoors;
     public static string name;
     public static int scores;
-    static void runServer()
+    static void RunServer()
     {
         TcpListener listener;
         Socket connection;
@@ -22,7 +22,7 @@ public class Whois
             {
                 connection = listener.AcceptSocket();
                 socketStream = new NetworkStream(connection);
-                doRequest(socketStream);
+                DoRequest(socketStream);
                 socketStream.Close();
                 connection.Close();
             }
@@ -33,7 +33,7 @@ public class Whois
         }
 
     }
-    static void doRequest(NetworkStream socketStream)
+    static void DoRequest(NetworkStream socketStream)
      {
         
         StreamWriter sw = new StreamWriter(socketStream);
@@ -82,6 +82,6 @@ public class Whois
     }
     static void Main(string[] args)
     {
-        runServer();
+        RunServer();
     }
 }
