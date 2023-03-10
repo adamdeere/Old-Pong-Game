@@ -16,17 +16,12 @@ namespace PongGame
         public static string masterIp;
         public static int portNo;
 
-        private Client client; //= new Client(serverIp, portNo, masterIp);
+        private Client client;
         private MasterServer master;
 
-        public MainMenuScene(SceneManager sceneManager, Client inClient, MasterServer inMaster)
+        public MainMenuScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            serverIp = inClient.serverAddress;
-            masterIp = inClient.masterAddress;
-            portNo = inClient.port;
-            client = inClient;
-            master = inMaster;
             // Set the title of the window
             sceneManager.Title = "Pong - Main Menu";
             // Set the Render and Update delegates to the Update and Render methods of this class
@@ -101,31 +96,6 @@ namespace PongGame
             if (keyState.IsKeyDown(Key.Number1))
             {
                 sceneManager.StartNewGame();
-            }
-            if (keyState.IsKeyDown(Key.Number2))
-            {
-                sceneManager.MultiPLayerGame();
-            }
-            if (keyState.IsKeyDown(Key.Number3))// host networked game
-            {
-                RenderText("waiting for a connection...", 0, 260f);
-                master.confirmConnection();
-                if (client.lineFromSlave.Contains("confrim"))
-                {
-                    sceneManager.HostAgame();
-                }
-            }
-            if (keyState.IsKeyDown(Key.Number4))// connect networked game
-            {
-                //client.checkConnection(masterIp, portNo);
-                if (client.lineFromMaster.Contains("ok"))
-                {
-                    sceneManager.ConnectToAgame();
-                }
-            }
-            if (keyState.IsKeyDown(Key.Number5))
-            {
-                sceneManager.GameOver();
             }
         }
     }

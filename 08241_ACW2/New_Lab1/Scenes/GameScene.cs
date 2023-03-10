@@ -15,7 +15,7 @@ namespace PongGame
         private Ball ball;
         private int scorePlayer = 9;
         private int scoreAI = 0;
-        private double gameTime = 2;
+        private double gameTime = 30;
 
         public GameScene(SceneManager sceneManager)
             : base(sceneManager)
@@ -76,7 +76,7 @@ namespace PongGame
             }
             else
             {
-                sceneManager.HighScore(scorePlayer);
+                sceneManager.StartMenu();
             }
         }
 
