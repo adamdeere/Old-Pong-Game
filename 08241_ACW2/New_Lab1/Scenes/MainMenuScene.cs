@@ -16,9 +16,6 @@ namespace PongGame
         public static string masterIp;
         public static int portNo;
 
-        private Client client;
-        private MasterServer master;
-
         public MainMenuScene(SceneManager sceneManager)
             : base(sceneManager)
         {

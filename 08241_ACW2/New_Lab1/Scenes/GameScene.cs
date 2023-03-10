@@ -1,6 +1,7 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using PongGame.GameObjects;
 using System;
 using System.Drawing;
 
@@ -17,6 +18,7 @@ namespace PongGame
         private int scoreAI = 0;
         private double gameTime = 30;
 
+        private CameraObject m_CamObject;
         public GameScene(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -27,7 +29,7 @@ namespace PongGame
             sceneManager.Keyboard.KeyDown += Keyboard_KeyDown;
 
             ResetGame();
-
+            m_CamObject = new CameraObject(sceneManager.Width, sceneManager.Height);
             GL.ClearColor(Color.Black);
         }
 
@@ -119,7 +121,7 @@ namespace PongGame
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            projectionMatrix = Matrix4.CreateOrthographicOffCenter(0, sceneManager.Width, 0, sceneManager.Height, -1.0f, +1.0f);
+            projectionMatrix = m_CamObject.Projection;
 
             ball.Render(projectionMatrix);
             paddlePlayer.Render(projectionMatrix);
