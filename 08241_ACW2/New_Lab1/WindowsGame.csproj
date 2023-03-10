@@ -61,10 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentTransform.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="GameObjects\AIPaddle.cs" />
     <Compile Include="GameObjects\Ball.cs" />
+    <Compile Include="GameObjects\CameraObject.cs" />
+    <Compile Include="GameObjects\Entity.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\PlayerTwoPaddle.cs" />
+    <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="Scenes\IScene.cs" />
     <Compile Include="GameObjects\PlayerPaddle.cs" />
     <Compile Include="SceneManager.cs" />
@@ -74,6 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObjects\Paddle.cs" />
     <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Systems\IRenderSystems.cs" />
+    <Compile Include="Systems\IUpdateSystems.cs" />
+    <Compile Include="Systems\SystemRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
