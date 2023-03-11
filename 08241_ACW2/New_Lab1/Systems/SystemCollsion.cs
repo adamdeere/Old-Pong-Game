@@ -26,13 +26,13 @@ namespace PongGame.Systems
                     {
                         return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
                     });
-                    ComponentTransform ballTransform = (ComponentTransform)ballTransformComponent;
+                    ComponentTransform ballTransform = ballTransformComponent as ComponentTransform;
 
                     IComponent ballCollsionComponent = ballComponents.Find(delegate (IComponent component)
                     {
                         return component.ComponentType == ComponentTypes.COMPONENT_BALL_COLLSION;
                     });
-                    ComponentBallCollsion ballCollsion = (ComponentBallCollsion)ballCollsionComponent;
+                    ComponentBallCollsion ballCollsion = ballCollsionComponent as ComponentBallCollsion;
 
                     // get components of the paddle
                     List<IComponent> components = entity.Components;
@@ -41,7 +41,7 @@ namespace PongGame.Systems
                     {
                         return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
                     });
-                    ComponentTransform paddleTransform = ((ComponentTransform)ballTransformComponent);
+                    ComponentTransform paddleTransform = ballTransformComponent as ComponentTransform;
                 }
             }
         }

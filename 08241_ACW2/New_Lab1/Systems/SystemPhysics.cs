@@ -35,17 +35,17 @@ namespace PongGame.Systems
 
                     ComponentPhysics physics = physicsComponent as ComponentPhysics;
 
-                    Vector2 velocity = physics.Velocity;
-                  
                     transform.Position = Update(position, physics, dt);
                 }
             }
         }
+
         private Vector2 UpdateVelocity(Vector2 velocity)
         {
             velocity.Y *= -1.0f;
             return velocity;
         }
+
         private Vector2 Update(Vector2 position, ComponentPhysics physics, float dt)
         {
             Vector2 velocity = physics.Velocity;

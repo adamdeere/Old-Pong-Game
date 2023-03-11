@@ -101,7 +101,6 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemPhysics());
             systemManager.AddUpdateSystem(new SystemCollsion());
             systemManager.AddUpdateSystem(new SystemGoalDetection());
-            
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)

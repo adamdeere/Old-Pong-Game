@@ -11,11 +11,14 @@ namespace PongGame.Systems
 
         private const ComponentTypes MASK =
              ComponentTypes.COMPONENT_SCORE_DATA;
+
         private readonly RenderTextOnScreen m_RenderText;
+
         public SystemRenderGameText()
         {
             m_RenderText = new RenderTextOnScreen(SceneManager.WindowHeight, SceneManager.WindowHeight);
         }
+
         public void OnAction(EntityManager entityManager)
         {
             foreach (var entity in entityManager.Entities())
@@ -34,8 +37,6 @@ namespace PongGame.Systems
                     {
                         m_RenderText.RenderText(score.Name + " Score " + score.Score, score.Offset, 0f);
                     }
-                   
-                    
                 }
             }
         }

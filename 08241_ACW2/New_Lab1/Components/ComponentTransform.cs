@@ -24,6 +24,7 @@ namespace PongGame.Components
             get { return m_OldPosition; }
             set { m_OldPosition = value; }
         }
+
         public ComponentTypes ComponentType => ComponentTypes.COMPONENT_TRANSFORM;
     }
 }
