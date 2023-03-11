@@ -12,8 +12,6 @@ namespace PongGame
 {
     internal class GameScene : Scene, IScene
     {
-        private Matrix4 projectionMatrix;
-
         private PlayerPaddle paddlePlayer;
         private AIPaddle paddleAI;
         private Ball ball;
@@ -68,18 +66,18 @@ namespace PongGame
             int ball = LoadVerts.LoadModelVerts(ballVertData, coldata);
 
             Entity newEntity;
-            newEntity = new Entity("Paddle");
+            newEntity = new Entity("PaddleOne");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentInput());
-            newEntity.AddComponent(new ComponentCollsion());
+            newEntity.AddComponent(new ComponentScoreData("Player", 0));
             entityManager.AddEntity(newEntity);
 
-            newEntity = new Entity("AI Paddle");
+            newEntity = new Entity("PaddleTwo");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentAI());
-            newEntity.AddComponent(new ComponentCollsion());
+            newEntity.AddComponent(new ComponentScoreData("AI", 40f));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ball");
@@ -87,6 +85,7 @@ namespace PongGame
             newEntity.AddComponent(new ComponentTransform((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentPhysics());
             newEntity.AddComponent(new ComponentBallCollsion());
+            newEntity.AddComponent(new ComponentCollsion());
             entityManager.AddEntity(newEntity);
         }
 
@@ -94,9 +93,11 @@ namespace PongGame
         {
             // add render system
             systemManager.AddRenderSystem(new SystemRender());
+            //systemManager.AddRenderSystem(new SystemRenderGameText());
             // add update systems
             systemManager.AddUpdateSystem(new SystemPhysics());
             systemManager.AddUpdateSystem(new SystemCollsion());
+            systemManager.AddUpdateSystem(new SystemGoalDetection());
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -143,39 +144,27 @@ namespace PongGame
             */
         }
 
-        private bool GoalDetection()
-        {
-            if (ball.Position.X < 0)
-            {
-                scoreAI++;
-                return true;
-            }
-            else if (ball.Position.X > SceneManager.WindowWidth)
-            {
-                scorePlayer++;
-                return true;
-            }
-
-            return false;
-        }
-
+        /*
         private void CollisionDetection()
         {
-            // AI
+            // PaddleTwo
             if ((paddleAI.Position.X - ball.Position.X) < ball.Radius &&
-               ball.Position.Y > (paddleAI.Position.Y - 35.0f) && ball.Position.Y < (paddleAI.Position.Y + 35.0f))
+               ball.Position.Y > (paddleAI.Position.Y - 35.0f) &&
+               ball.Position.Y < (paddleAI.Position.Y + 35.0f))
             {
                 ball.Position = new Vector2(paddleAI.Position.X - ball.Radius, ball.Position.Y);
                 ball.Velocity = new Vector2(ball.Velocity.X * -1.0f, ball.Velocity.Y) * 2.0f;
             }
-            // Player
+            // PaddleOne
             if ((ball.Position.X - paddlePlayer.Position.X) < ball.Radius &&
-               ball.Position.Y > (paddlePlayer.Position.Y - 35.0f) && ball.Position.Y < (paddlePlayer.Position.Y + 35.0f))
+               ball.Position.Y > (paddlePlayer.Position.Y - 35.0f) &&
+               ball.Position.Y < (paddlePlayer.Position.Y + 35.0f))
             {
                 ball.Position = new Vector2(paddlePlayer.Position.X + ball.Radius, ball.Position.Y);
                 ball.Velocity = new Vector2(ball.Velocity.X * -1.0f, ball.Velocity.Y) * 2.0f;
             }
         }
+        */
 
         public void Render(FrameEventArgs e)
         {

@@ -15,7 +15,7 @@ namespace PongGame.Components
             m_Velocity = RandomVelocity();
         }
 
-        private Vector2 RandomVelocity()
+        public Vector2 RandomVelocity()
         {
             Vector2 vel = (new Vector2(((float)rand.NextDouble() * 2.0f) - 1.0f, ((float)rand.NextDouble() * 2.0f) - 1.0f));
             vel.Normalize();
