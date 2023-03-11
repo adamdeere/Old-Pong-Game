@@ -6,6 +6,7 @@ namespace PongGame.GameObjects
     {
         private Matrix4 projectionMatrix;
         private Matrix4 viewMatrix;
+
         public CameraObject(int width, int height)
         {
             projectionMatrix = Matrix4.CreateOrthographicOffCenter(0, width, 0, height, -1.0f, +1.0f);
@@ -17,7 +18,7 @@ namespace PongGame.GameObjects
             get { return projectionMatrix; }
         }
 
-        public Matrix4 Position
+        public Matrix4 View
         {
             get { return viewMatrix; }
         }

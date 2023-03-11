@@ -1,8 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using System.Drawing.Imaging;
-using System.Drawing;
 using System;
-using OpenTK;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace PongGame.Utility
 {
@@ -13,10 +12,11 @@ namespace PongGame.Utility
         private readonly Graphics textGFX;
 
         private readonly int width, height;
+
         public RenderTextOnScreen(int width, int height)
         {
-            this.width= width;
-            this.height= height;
+            this.width = width;
+            this.height = height;
             // Create Bitmap and OpenGL texture for rendering text
             textBMP = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb); // match window size
             textGFX = Graphics.FromImage(textBMP);

@@ -1,20 +1,25 @@
-﻿using OpenTK;
-
-namespace PongGame.Components
+﻿namespace PongGame.Components
 {
     internal class ComponentTransform : IComponent
     {
-        private Vector3 m_Position;
+        private float x_Pos, y_Pos;
 
-        public ComponentTransform(Vector3 pos)
+        public ComponentTransform(float x, float y)
         {
-            m_Position = pos;
+            x_Pos = x;
+            y_Pos = y;
         }
 
-        public Vector3 Position
+        public float XPosition
         {
-            get { return m_Position; }
-            set { m_Position = value; }
+            get { return x_Pos; }
+            set { x_Pos = value; }
+        }
+
+        public float YPosition
+        {
+            get { return y_Pos; }
+            set { y_Pos = value; }
         }
 
         public ComponentTypes ComponentType => ComponentTypes.COMPONENT_TRANSFORM;

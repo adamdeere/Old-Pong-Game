@@ -119,7 +119,6 @@ namespace PongGame.Utility
 
         public void SetMatrix4(string name, Matrix4 mat)
         {
-           
             GL.UniformMatrix4(_uniformLocations[name], true, ref mat);
         }
 

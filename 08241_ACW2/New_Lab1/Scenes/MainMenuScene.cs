@@ -2,15 +2,13 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using PongGame.Utility;
-using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 
 namespace PongGame
 {
     internal class MainMenuScene : Scene, IScene
     {
         private readonly RenderTextOnScreen m_RenderText;
+
         public MainMenuScene(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -20,7 +18,6 @@ namespace PongGame
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
             m_RenderText = new RenderTextOnScreen(sceneManager.Width, sceneManager.Height);
-           
         }
 
         public void Update(FrameEventArgs e)
@@ -47,6 +44,7 @@ namespace PongGame
                 m_RenderText.RenderText("5. display high scores", 0, 220f);
             }
         }
+
         public void SelectMenu(KeyboardKeyEventArgs e)
         {
             KeyboardState keyState = Keyboard.GetState();
