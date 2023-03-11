@@ -1,24 +1,50 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using PongGame.Components;
+using PongGame.GameObjects;
+using PongGame.Managers;
+using PongGame.Systems;
+using PongGame.Utility;
 using System.Drawing;
-using System.Collections.Generic;
 
 namespace PongGame
 {
-    class GameScene : Scene, IScene
+    internal class GameScene : Scene, IScene
     {
-        Matrix4 projectionMatrix;
+        private Matrix4 projectionMatrix;
 
-        PlayerPaddle paddlePlayer;
-        AIPaddle paddleAI;
-        Ball ball;
-        int scorePlayer = 9;
-        int scoreAI = 0;
-        double gameTime = 2;
+        private PlayerPaddle paddlePlayer;
+        private AIPaddle paddleAI;
+        private Ball ball;
+        private int scorePlayer = 9;
+        private int scoreAI = 0;
+        private double gameTime = 30;
 
-        public GameScene(SceneManager sceneManager) 
+        private EntityManager entityManager;
+        private readonly SystemManager systemManager;
+
+        private Vector3[] vertdata = new Vector3[] {
+                new Vector3(-10f, +30f, 0f),
+                new Vector3(-10f, -30f, 0f),
+                new Vector3(+10f, -30f, 0f),
+                new Vector3(+10f, +30f, 0f) };
+
+        private Vector3[] coldata = new Vector3[] {
+                new Vector3(1f, 1f, 1f),
+                new Vector3(1f, 1f, 1f),
+                new Vector3(1f, 1f, 1f),
+                new Vector3(1f, 1f, 1f) };
+
+        private Vector3[] ballVertData = new Vector3[] {
+                new Vector3(-10f, +10f, 0f),
+                new Vector3(-10f, -10f, 0f),
+                new Vector3(+10f, -10f, 0f),
+                new Vector3(+10f, +10f, 0f) };
+
+        private readonly CameraObject m_CamObject;
+
+        public GameScene(SceneManager sceneManager)
             : base(sceneManager)
         {
             // Set the Render and Update delegates to the Update and Render methods of this class
@@ -27,36 +53,72 @@ namespace PongGame
             // Set Keyboard events to go to a method in this class
             sceneManager.Keyboard.KeyDown += Keyboard_KeyDown;
 
-            ResetGame();
-
+            // ResetGame();
+            m_CamObject = new CameraObject(sceneManager.Width, sceneManager.Height);
             GL.ClearColor(Color.Black);
+            entityManager = new EntityManager(m_CamObject);
+            systemManager = new SystemManager();
+            CreateEntities();
+            CreateSystems();
         }
 
-        private void ResetGame()
+        private void CreateEntities()
         {
-            paddlePlayer = new PlayerPaddle(40, (int)(SceneManager.WindowHeight * 0.5));
-            paddlePlayer.Init();
-            paddleAI = new AIPaddle(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5));
-            paddleAI.Init();
-            ball = new Ball((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5));
-            ball.Init();
+            int paddle = LoadVerts.LoadModelVerts(vertdata, coldata);
+            int ball = LoadVerts.LoadModelVerts(ballVertData, coldata);
+
+            Entity newEntity;
+            newEntity = new Entity("Paddle");
+            newEntity.AddComponent(new ComponentModel(paddle));
+            newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentInput());
+            newEntity.AddComponent(new ComponentCollsion());
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("AI Paddle");
+            newEntity.AddComponent(new ComponentModel(paddle));
+            newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentAI());
+            newEntity.AddComponent(new ComponentCollsion());
+            entityManager.AddEntity(newEntity);
+
+            newEntity = new Entity("Ball");
+            newEntity.AddComponent(new ComponentModel(ball));
+            newEntity.AddComponent(new ComponentTransform((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentPhysics());
+            newEntity.AddComponent(new ComponentBallCollsion());
+            entityManager.AddEntity(newEntity);
+        }
+
+        private void CreateSystems()
+        {
+            // add render system
+            systemManager.AddRenderSystem(new SystemRender());
+            // add update systems
+            systemManager.AddUpdateSystem(new SystemPhysics());
+            systemManager.AddUpdateSystem(new SystemCollsion());
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
         {
+            /*
             switch (e.Key)
             {
                 case Key.Up:
                     paddlePlayer.Move(20);
                     break;
+
                 case Key.Down:
                     paddlePlayer.Move(-20);
                     break;
             }
+            */
         }
 
         public void Update(FrameEventArgs e)
         {
+            systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
+            /*
             // Set the title of the window
             if (gameTime > 0)
             {
@@ -76,9 +138,9 @@ namespace PongGame
             }
             else
             {
-                sceneManager.HighScore(scorePlayer);
+                sceneManager.StartMenu();
             }
-            
+            */
         }
 
         private bool GoalDetection()
@@ -119,13 +181,7 @@ namespace PongGame
         {
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            projectionMatrix = Matrix4.CreateOrthographicOffCenter(0, sceneManager.Width, 0, sceneManager.Height, -1.0f, +1.0f);
-
-            ball.Render(projectionMatrix);
-            paddlePlayer.Render(projectionMatrix);
-            paddleAI.Render(projectionMatrix);
+            systemManager.ActionRenderSystems(entityManager);
         }
     }
 }
-

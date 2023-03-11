@@ -1,32 +1,27 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
-using PongGame.Scenes;
+using System;
 using System.Collections.Generic;
 
 namespace PongGame
 {
-    class SceneManager : GameWindow
+    internal class SceneManager : GameWindow
     {
-        Scene scene;
-        static int width = 0;
-        static int height = 0;
-       // static double menuTime = 10;
-       
-        Client client;
-        MasterServer master;
+        private Scene scene;
+        private static int width = 0;
+        private static int height = 0;
+
         public delegate void SceneDelegate(FrameEventArgs e);
+
         public SceneDelegate renderer;
         public SceneDelegate updater;
         public static Dictionary<int, string> myDictionary = new Dictionary<int, string>();
         public string ServerIp;
         public string masterIp;
         public int Port;
-        public SceneManager(Client inClient, MasterServer inMaster)
+
+        public SceneManager()
         {
-            client = inClient;
-            master = inMaster;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -35,12 +30,12 @@ namespace PongGame
 
             GL.Enable(EnableCap.DepthTest);
 
-            base.Width = 1024;
-            base.Height = 512;
-            SceneManager.width = Width;
-            SceneManager.height = Height;
+            Width = 1024;
+            Height = 512;
+            width = Width;
+            height = Height;
 
-            scene = new MainMenuScene(this, client, master);
+            scene = new MainMenuScene(this);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -57,6 +52,7 @@ namespace PongGame
             GL.Flush();
             SwapBuffers();
         }
+
         public void StartNewGame()
         {
             scene = new GameScene(this);
@@ -64,28 +60,7 @@ namespace PongGame
 
         public void StartMenu()
         {
-            scene = new MainMenuScene(this, client, master);
-        }
-        public void GameOver()
-        {
-            scene = new GameOverScene(this, client);
-            
-        }
-        public void HighScore(int scorePlayer)
-        {
-            scene = new HighScoreScene(this, scorePlayer, client);
-        }
-        public void MultiPLayerGame()
-        {
-            scene = new MultiGameScene(this);
-        }
-        public void HostAgame()
-        {
-            scene = new MasterGameClass(this, client, master);
-        }
-        public void ConnectToAgame()
-        {
-            scene = new SlaveGameClass(this, client);
+            scene = new MainMenuScene(this);
         }
 
         public static int WindowWidth
@@ -103,10 +78,8 @@ namespace PongGame
             base.OnResize(e);
 
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
-            SceneManager.width = Width;
-            SceneManager.height = Height;
+            width = Width;
+            height = Height;
         }
     }
-
 }
-
