@@ -62,8 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ComponentAI.cs" />
+    <Compile Include="Components\ComponentCollsion.cs" />
     <Compile Include="Components\ComponentInput.cs" />
     <Compile Include="Components\ComponentModel.cs" />
+    <Compile Include="Components\ComponentBallCollsion.cs" />
     <Compile Include="Components\ComponentPhysics.cs" />
     <Compile Include="Components\ComponentTransform.cs" />
     <Compile Include="Components\IComponent.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\IRenderSystems.cs" />
     <Compile Include="Systems\IUpdateSystems.cs" />
+    <Compile Include="Systems\SystemCollsion.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
     <Compile Include="Utility\LoadVerts.cs" />

@@ -9,6 +9,7 @@
         COMPONENT_COLISION = 1 << 3,
         COMPONENT_AI = 1 << 4,
         COMPONENT_INPUT = 1 << 5,
+        COMPONENT_BALL_COLLSION = 1 << 6,
     }
 
     internal interface IComponent

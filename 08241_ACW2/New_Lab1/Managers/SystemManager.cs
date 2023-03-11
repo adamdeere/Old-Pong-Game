@@ -1,5 +1,4 @@
-﻿using PongGame.GameObjects;
-using PongGame.Systems;
+﻿using PongGame.Systems;
 using System.Collections.Generic;
 
 namespace PongGame.Managers
@@ -32,13 +31,9 @@ namespace PongGame.Managers
 
         public void ActionUpdateSystems(EntityManager entityManager, float dt)
         {
-            List<Entity> entityList = entityManager.Entities();
             foreach (var system in m_UpdateSystems)
             {
-                for (int i = 0; i < entityList.Count; i++)
-                {
-                    system.OnAction(entityList[i], dt);
-                }
+                system.OnAction(entityManager, dt);
             }
         }
 

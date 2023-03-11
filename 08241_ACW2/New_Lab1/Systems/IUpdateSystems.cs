@@ -1,10 +1,10 @@
-﻿using PongGame.GameObjects;
+﻿using PongGame.Managers;
 
 namespace PongGame.Systems
 {
     internal interface IUpdateSystems
     {
-        void OnAction(Entity entity, float dt);
+        void OnAction(EntityManager entity, float dt);
 
         // Property signatures:
         string Name

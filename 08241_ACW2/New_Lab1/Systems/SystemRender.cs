@@ -39,11 +39,11 @@ namespace PongGame.Systems
             }
         }
 
-        public void OnAction(EntityManager entityList)
+        public void OnAction(EntityManager entityManager)
         {
             GL.UseProgram(pgmID);
-            CameraObject camera = entityList.CurrentCam;
-            foreach (var entity in entityList.Entities())
+            CameraObject camera = entityManager.CurrentCam;
+            foreach (var entity in entityManager.Entities())
             {
                 if ((entity.Mask & MASK) == MASK)
                 {

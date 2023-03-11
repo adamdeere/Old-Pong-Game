@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 using PongGame.Components;
-using PongGame.GameObjects;
+using PongGame.Managers;
 using System.Collections.Generic;
 
 namespace PongGame.Systems
@@ -12,28 +12,31 @@ namespace PongGame.Systems
         private const ComponentTypes MASK =
               ComponentTypes.COMPONENT_PHYSICS;
 
-        public void OnAction(Entity entity, float dt)
+        public void OnAction(EntityManager entityManager, float dt)
         {
-            if ((entity.Mask & MASK) == MASK)
+            foreach (var entity in entityManager.Entities())
             {
-                List<IComponent> components = entity.Components;
-
-                IComponent transformComponent = components.Find(delegate (IComponent component)
+                if ((entity.Mask & MASK) == MASK)
                 {
-                    return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-                });
-                ComponentTransform trans = ((ComponentTransform)transformComponent);
+                    List<IComponent> components = entity.Components;
 
-                Vector2 position = trans.Position;
+                    IComponent transformComponent = components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
+                    });
+                    ComponentTransform transform = ((ComponentTransform)transformComponent);
 
-                IComponent physicsComponent = components.Find(delegate (IComponent component)
-                {
-                    return component.ComponentType == ComponentTypes.COMPONENT_PHYSICS;
-                });
+                    Vector2 position = transform.Position;
 
-                Vector2 velocity = ((ComponentPhysics)physicsComponent).Velocity;
+                    IComponent physicsComponent = components.Find(delegate (IComponent component)
+                    {
+                        return component.ComponentType == ComponentTypes.COMPONENT_PHYSICS;
+                    });
 
-                trans.Position = Update(position, velocity, dt);
+                    Vector2 velocity = ((ComponentPhysics)physicsComponent).Velocity;
+
+                    transform.Position = Update(position, velocity, dt);
+                }
             }
         }
 

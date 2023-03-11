@@ -72,18 +72,21 @@ namespace PongGame
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentInput());
+            newEntity.AddComponent(new ComponentCollsion());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("AI Paddle");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentAI());
+            newEntity.AddComponent(new ComponentCollsion());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ball");
             newEntity.AddComponent(new ComponentModel(ball));
             newEntity.AddComponent(new ComponentTransform((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentPhysics());
+            newEntity.AddComponent(new ComponentBallCollsion());
             entityManager.AddEntity(newEntity);
         }
 
@@ -102,6 +105,7 @@ namespace PongGame
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
         {
+            /*
             switch (e.Key)
             {
                 case Key.Up:
@@ -112,6 +116,7 @@ namespace PongGame
                     paddlePlayer.Move(-20);
                     break;
             }
+            */
         }
 
         public void Update(FrameEventArgs e)
@@ -181,11 +186,6 @@ namespace PongGame
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             systemManager.ActionRenderSystems(entityManager);
-            // projectionMatrix = m_CamObject.Projection;
-
-            //ball.Render(projectionMatrix);
-            // paddlePlayer.Render(projectionMatrix);
-            // paddleAI.Render(projectionMatrix);
         }
     }
 }
