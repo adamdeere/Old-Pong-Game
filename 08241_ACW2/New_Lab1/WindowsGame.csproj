@@ -61,7 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentAI.cs" />
+    <Compile Include="Components\ComponentInput.cs" />
     <Compile Include="Components\ComponentModel.cs" />
+    <Compile Include="Components\ComponentPhysics.cs" />
     <Compile Include="Components\ComponentTransform.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="GameObjects\AIPaddle.cs" />

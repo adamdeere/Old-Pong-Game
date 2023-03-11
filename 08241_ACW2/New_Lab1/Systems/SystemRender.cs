@@ -60,19 +60,17 @@ namespace PongGame.Systems
                     {
                         return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
                     });
-                    float x = ((ComponentTransform)transformComponent).XPosition;
-                    float y = ((ComponentTransform)transformComponent).YPosition;
-
-                    Draw(vao, x, y, camera);
+                    Vector2 position = ((ComponentTransform)transformComponent).Position;
+                    Draw(vao, position, camera);
                 }
             }
         }
 
-        private void Draw(int vao_Handle, float x, float y, CameraObject cam)
+        private void Draw(int vao_Handle, Vector2 pos, CameraObject cam)
         {
             GL.BindVertexArray(vao_Handle);
 
-            Matrix4 worldMatrix = Matrix4.CreateTranslation(x, y, 0);
+            Matrix4 worldMatrix = Matrix4.CreateTranslation(pos.X, pos.Y, 0);
             Matrix4 worldViewProjection = worldMatrix * cam.View * cam.Projection;
             GL.UniformMatrix4(uniform_mview, false, ref worldViewProjection);
 

@@ -71,16 +71,19 @@ namespace PongGame
             newEntity = new Entity("Paddle");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentInput());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("AI Paddle");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentAI());
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ball");
             newEntity.AddComponent(new ComponentModel(ball));
             newEntity.AddComponent(new ComponentTransform((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5)));
+            newEntity.AddComponent(new ComponentPhysics());
             entityManager.AddEntity(newEntity);
         }
 
@@ -95,16 +98,6 @@ namespace PongGame
 
             newUpdateSystem = new SystemPhysics();
             systemManager.AddUpdateSystem(newUpdateSystem);
-        }
-
-        private void ResetGame()
-        {
-            paddlePlayer = new PlayerPaddle(40, (int)(SceneManager.WindowHeight * 0.5));
-            paddlePlayer.Init();
-            paddleAI = new AIPaddle(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5));
-            paddleAI.Init();
-            ball = new Ball((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5));
-            ball.Init();
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -123,6 +116,7 @@ namespace PongGame
 
         public void Update(FrameEventArgs e)
         {
+            systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
             /*
             // Set the title of the window
             if (gameTime > 0)
