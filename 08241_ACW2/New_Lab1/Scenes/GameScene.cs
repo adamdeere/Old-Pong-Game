@@ -68,18 +68,20 @@ namespace PongGame
             int ball = LoadVerts.LoadModelVerts(ballVertData, coldata);
 
             Entity newEntity;
-            newEntity = new Entity("Paddle");
+            newEntity = new Entity("PaddleOne");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentInput());
             newEntity.AddComponent(new ComponentCollsion());
+            newEntity.AddComponent(new ComponentScoreData("Player", 0));
             entityManager.AddEntity(newEntity);
 
-            newEntity = new Entity("AI Paddle");
+            newEntity = new Entity("PaddleTwo");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentAI());
             newEntity.AddComponent(new ComponentCollsion());
+            newEntity.AddComponent(new ComponentScoreData("AI", 40f));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ball");
@@ -94,9 +96,12 @@ namespace PongGame
         {
             // add render system
             systemManager.AddRenderSystem(new SystemRender());
+            //systemManager.AddRenderSystem(new SystemRenderGameText());
             // add update systems
             systemManager.AddUpdateSystem(new SystemPhysics());
             systemManager.AddUpdateSystem(new SystemCollsion());
+            systemManager.AddUpdateSystem(new SystemGoalDetection());
+            
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)

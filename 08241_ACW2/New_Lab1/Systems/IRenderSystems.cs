@@ -4,7 +4,7 @@ namespace PongGame.Systems
 {
     internal interface IRenderSystems
     {
-        void OnAction(EntityManager entityList);
+        void OnAction(EntityManager entityManager);
 
         // Property signatures:
         string Name

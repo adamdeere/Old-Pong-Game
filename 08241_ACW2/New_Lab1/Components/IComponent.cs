@@ -10,6 +10,7 @@
         COMPONENT_AI = 1 << 4,
         COMPONENT_INPUT = 1 << 5,
         COMPONENT_BALL_COLLSION = 1 << 6,
+        COMPONENT_SCORE_DATA = 1 << 7,
     }
 
     internal interface IComponent

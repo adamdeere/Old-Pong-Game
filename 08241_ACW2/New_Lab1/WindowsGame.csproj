@@ -67,6 +67,7 @@
     <Compile Include="Components\ComponentModel.cs" />
     <Compile Include="Components\ComponentBallCollsion.cs" />
     <Compile Include="Components\ComponentPhysics.cs" />
+    <Compile Include="Components\ComponentScoreData.cs" />
     <Compile Include="Components\ComponentTransform.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="GameObjects\AIPaddle.cs" />
@@ -89,8 +90,10 @@
     <Compile Include="Systems\IRenderSystems.cs" />
     <Compile Include="Systems\IUpdateSystems.cs" />
     <Compile Include="Systems\SystemCollsion.cs" />
+    <Compile Include="Systems\SystemGoalDetection.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
+    <Compile Include="Systems\SystemRenderGameText.cs" />
     <Compile Include="Utility\LoadVerts.cs" />
     <Compile Include="Utility\RenderTextOnScreen.cs" />
     <Compile Include="Utility\Shader.cs" />
