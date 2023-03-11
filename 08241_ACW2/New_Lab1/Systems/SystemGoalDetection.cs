@@ -13,13 +13,13 @@ namespace PongGame.Systems
         private const ComponentTypes MASK =
               ComponentTypes.COMPONENT_PHYSICS;
 
-        private Vector2 pos;
+        private Vector2 resetPos;
 
         public SystemGoalDetection()
         {
             float x = (int)(SceneManager.WindowWidth * 0.5);
             float y = (int)(SceneManager.WindowHeight * 0.5);
-            pos = new Vector2(x, y);
+            resetPos = new Vector2(x, y);
         }
 
         public void OnAction(EntityManager entityManager, float dt)
@@ -73,7 +73,7 @@ namespace PongGame.Systems
 
         private void ResetBall(ComponentTransform transform, ComponentPhysics physics)
         {
-            transform.Position = pos;
+            transform.Position = resetPos;
             physics.Velocity = physics.RandomVelocity();
         }
     }
