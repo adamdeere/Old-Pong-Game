@@ -13,11 +13,11 @@ namespace PongGame.Systems
 
         public void OnAction(EntityManager entityManager, float dt)
         {
-            Entity ball = entityManager.FindEntity("Ball");
             foreach (var entity in entityManager.Entities())
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
+                    Entity ball = entityManager.FindEntity("Ball");
                 }
             }
         }

@@ -92,15 +92,11 @@ namespace PongGame
 
         private void CreateSystems()
         {
-            IRenderSystems newSystem;
-
-            newSystem = new SystemRender();
-            systemManager.AddRenderSystem(newSystem);
-
-            IUpdateSystems newUpdateSystem;
-
-            newUpdateSystem = new SystemPhysics();
-            systemManager.AddUpdateSystem(newUpdateSystem);
+            // add render system
+            systemManager.AddRenderSystem(new SystemRender());
+            // add update systems
+            systemManager.AddUpdateSystem(new SystemPhysics());
+            systemManager.AddUpdateSystem(new SystemCollsion());
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
