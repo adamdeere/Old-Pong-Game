@@ -1,5 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using PongGame.Utility;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,8 @@ namespace PongGame
         public string masterIp;
         public int Port;
 
+        private RenderTextOnScreen m_RenderText;
+
         public SceneManager()
         {
         }
@@ -34,8 +37,8 @@ namespace PongGame
             Height = 512;
             width = Width;
             height = Height;
-
-            scene = new MainMenuScene(this);
+            m_RenderText = new RenderTextOnScreen(width, height);
+            scene = new MainMenuScene(this, m_RenderText);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -60,7 +63,7 @@ namespace PongGame
 
         public void StartMenu()
         {
-            scene = new MainMenuScene(this);
+            scene = new MainMenuScene(this, m_RenderText);
         }
 
         public static int WindowWidth
