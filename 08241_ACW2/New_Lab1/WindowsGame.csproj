@@ -98,7 +98,7 @@
     <Compile Include="Systems\SystemRender.cs" />
     <Compile Include="Systems\SystemRenderGameText.cs" />
     <Compile Include="Utility\LoadVerts.cs" />
-    <Compile Include="Utility\RenderTextOnScreen.cs" />
+    <Compile Include="Utility\RenderText.cs" />
     <Compile Include="Utility\Shader.cs" />
   </ItemGroup>
   <ItemGroup>

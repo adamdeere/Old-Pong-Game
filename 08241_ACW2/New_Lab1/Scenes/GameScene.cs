@@ -17,7 +17,7 @@ namespace PongGame
         private Ball ball;
         private int scorePlayer = 9;
         private int scoreAI = 0;
-        private double gameTime = 30;
+        private double gameTime = 5;
 
         private EntityManager entityManager;
         private readonly SystemManager systemManager;
