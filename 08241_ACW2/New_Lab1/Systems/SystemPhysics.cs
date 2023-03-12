@@ -18,22 +18,11 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    List<IComponent> components = entity.Components;
-
-                    IComponent transformComponent = components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-                    });
-                    ComponentTransform transform = transformComponent as ComponentTransform;
+                    ComponentTransform transform = entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
 
                     Vector2 position = transform.Position;
 
-                    IComponent physicsComponent = components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_PHYSICS;
-                    });
-
-                    ComponentPhysics physics = physicsComponent as ComponentPhysics;
+                    ComponentPhysics physics = entity.FindComponent(ComponentTypes.COMPONENT_PHYSICS) as ComponentPhysics;
 
                     transform.Position = Update(position, physics, dt);
                 }
