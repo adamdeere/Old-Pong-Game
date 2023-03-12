@@ -6,7 +6,6 @@ using PongGame.GameObjects;
 using PongGame.Managers;
 using PongGame.Systems;
 using PongGame.Utility;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace PongGame
@@ -18,7 +17,7 @@ namespace PongGame
         private Ball ball;
         private int scorePlayer = 9;
         private int scoreAI = 0;
-        private double gameTime = 5;
+        private double gameTime = 30;
 
         private EntityManager entityManager;
         private readonly SystemManager systemManager;
@@ -105,6 +104,7 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemCollsion());
             systemManager.AddUpdateSystem(new SystemGoalDetection());
             systemManager.AddUpdateSystem(new SystemGameManager(sceneManager));
+            systemManager.AddUpdateSystem(new SystemAI());
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)

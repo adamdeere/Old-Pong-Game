@@ -90,6 +90,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Systems\IRenderSystems.cs" />
     <Compile Include="Systems\IUpdateSystems.cs" />
+    <Compile Include="Systems\SystemAI.cs" />
     <Compile Include="Systems\SystemCollsion.cs" />
     <Compile Include="Systems\SystemGameManager.cs" />
     <Compile Include="Systems\SystemGoalDetection.cs" />
