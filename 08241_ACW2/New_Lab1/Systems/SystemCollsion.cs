@@ -33,30 +33,27 @@ namespace PongGame.Systems
 
                     ComponentPhysics ballPhysics = physicsComponent as ComponentPhysics;
 
-                    Entity paddleTwo = entityManager.FindEntity("PaddleTwo");
-                    Entity paddlePlayer = entityManager.FindEntity("PaddleOne");
-
-                    List<IComponent> playerTwoList = paddleTwo.Components;
-
-                    IComponent paddletwoTransform = playerTwoList.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-                    });
-
-                    ComponentTransform paddleTwoTransform = paddletwoTransform as ComponentTransform;
-
-                    List<IComponent> playerOneList = paddlePlayer.Components;
-                    IComponent paddleOneTransform = playerOneList.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-                    });
-
-                    ComponentTransform paddlePlayerTrans = paddleOneTransform as ComponentTransform;
+                    ComponentTransform paddleTwoTransform = GetPaddleTransform(entityManager, "PaddleTwo");
+                    ComponentTransform paddlePlayerTrans = GetPaddleTransform(entityManager, "PaddleOne");
+                    
                     CollsionReaction(paddleTwoTransform, paddlePlayerTrans, ballPhysics, ballTransform, 10);
                 }
             }
         }
+        private ComponentTransform GetPaddleTransform(EntityManager entityManager, string name)
+        {
+            Entity paddleTwo = entityManager.FindEntity(name);
 
+            List<IComponent> playerTwoList = paddleTwo.Components;
+
+            IComponent paddletwoTransform = playerTwoList.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
+            });
+
+            return paddletwoTransform as ComponentTransform;
+
+        }
         private void CollsionReaction(ComponentTransform paddleAI, ComponentTransform paddlePlayer, ComponentPhysics ball, ComponentTransform ballPos, int ballRadius)
         {
             // PaddleTwo

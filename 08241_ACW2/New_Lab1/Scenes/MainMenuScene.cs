@@ -9,7 +9,7 @@ namespace PongGame
     {
         private readonly RenderTextOnScreen m_RenderText;
 
-        public MainMenuScene(SceneManager sceneManager)
+        public MainMenuScene(SceneManager sceneManager, RenderTextOnScreen renderText)
             : base(sceneManager)
         {
             // Set the title of the window
@@ -17,7 +17,7 @@ namespace PongGame
             // Set the Render and Update delegates to the Update and Render methods of this class
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
-            m_RenderText = new RenderTextOnScreen(sceneManager.Width, sceneManager.Height);
+            m_RenderText = renderText;
         }
 
         public void Update(FrameEventArgs e)

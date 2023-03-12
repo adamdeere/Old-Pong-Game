@@ -11,6 +11,7 @@
         COMPONENT_INPUT = 1 << 5,
         COMPONENT_BALL_COLLSION = 1 << 6,
         COMPONENT_SCORE_DATA = 1 << 7,
+        COMPONENT_GAME_MANAGER = 1 << 8,
     }
 
     internal interface IComponent

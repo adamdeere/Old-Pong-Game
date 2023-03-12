@@ -15,6 +15,16 @@ namespace PongGame.GameObjects
             m_Name = name;
         }
 
+        public IComponent FindComponent(ComponentTypes type)
+        {
+            IComponent transformComponent = componentList.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == type;
+            });
+
+            return transformComponent;
+        }
+
         public void AddComponent(IComponent component)
         {
             Debug.Assert(component != null, "Component cannot be null");

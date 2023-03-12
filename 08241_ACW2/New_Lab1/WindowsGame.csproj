@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Components\ComponentAI.cs" />
     <Compile Include="Components\ComponentCollsion.cs" />
+    <Compile Include="Components\ComponentGameData.cs" />
     <Compile Include="Components\ComponentInput.cs" />
     <Compile Include="Components\ComponentModel.cs" />
     <Compile Include="Components\ComponentBallCollsion.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Systems\IRenderSystems.cs" />
     <Compile Include="Systems\IUpdateSystems.cs" />
     <Compile Include="Systems\SystemCollsion.cs" />
+    <Compile Include="Systems\SystemGameManager.cs" />
     <Compile Include="Systems\SystemGoalDetection.cs" />
     <Compile Include="Systems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
