@@ -12,29 +12,24 @@ namespace PongGame
 {
     internal class GameScene : Scene, IScene
     {
-        private PlayerPaddle paddlePlayer;
-        private AIPaddle paddleAI;
-        private Ball ball;
-        private int scorePlayer = 9;
-        private int scoreAI = 0;
-        private double gameTime = 5;
+        private double gameTime = 30;
 
-        private EntityManager entityManager;
+        private readonly EntityManager entityManager;
         private readonly SystemManager systemManager;
-
-        private Vector3[] vertdata = new Vector3[] {
+        private readonly RenderText m_RenderText;
+        private readonly Vector3[] vertdata = new Vector3[] {
                 new Vector3(-10f, +30f, 0f),
                 new Vector3(-10f, -30f, 0f),
                 new Vector3(+10f, -30f, 0f),
                 new Vector3(+10f, +30f, 0f) };
 
-        private Vector3[] coldata = new Vector3[] {
+        private readonly Vector3[] coldata = new Vector3[] {
                 new Vector3(1f, 1f, 1f),
                 new Vector3(1f, 1f, 1f),
                 new Vector3(1f, 1f, 1f),
                 new Vector3(1f, 1f, 1f) };
 
-        private Vector3[] ballVertData = new Vector3[] {
+        private readonly Vector3[] ballVertData = new Vector3[] {
                 new Vector3(-10f, +10f, 0f),
                 new Vector3(-10f, -10f, 0f),
                 new Vector3(+10f, -10f, 0f),
@@ -56,6 +51,7 @@ namespace PongGame
             GL.ClearColor(Color.Black);
             entityManager = new EntityManager(m_CamObject);
             systemManager = new SystemManager();
+            m_RenderText = new RenderText(SceneManager.WindowWidth, 100);
             CreateEntities();
             CreateSystems();
         }
@@ -70,14 +66,14 @@ namespace PongGame
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentInput());
-            newEntity.AddComponent(new ComponentScoreData("Player", 0));
+            newEntity.AddComponent(new ComponentScoreData("Player", 400f));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("PaddleTwo");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
             newEntity.AddComponent(new ComponentAI());
-            newEntity.AddComponent(new ComponentScoreData("AI", 40f));
+            newEntity.AddComponent(new ComponentScoreData("AI", 600f));
             entityManager.AddEntity(newEntity);
 
             newEntity = new Entity("Ball");
@@ -90,7 +86,6 @@ namespace PongGame
 
             newEntity = new Entity("GameManager");
             newEntity.AddComponent(new ComponentGameData(gameTime));
-           
             entityManager.AddEntity(newEntity);
         }
 
@@ -98,12 +93,12 @@ namespace PongGame
         {
             // add render system
             systemManager.AddRenderSystem(new SystemRender());
-            //systemManager.AddRenderSystem(new SystemRenderGameText());
+            systemManager.AddRenderSystem(new SystemRenderGameText(m_RenderText));
             // add update systems
             systemManager.AddUpdateSystem(new SystemPhysics());
             systemManager.AddUpdateSystem(new SystemCollsion());
             systemManager.AddUpdateSystem(new SystemGoalDetection());
-            systemManager.AddUpdateSystem(new SystemGameManager(sceneManager));
+            systemManager.AddUpdateSystem(new SystemGameManager(sceneManager, m_RenderText));
             systemManager.AddUpdateSystem(new SystemAI());
         }
 
@@ -126,53 +121,7 @@ namespace PongGame
         public void Update(FrameEventArgs e)
         {
             systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
-            /*
-            // Set the title of the window
-            if (gameTime > 0)
-            {
-                sceneManager.Title = "Pong - Player Score: " + scorePlayer + " - AI Score: " + scoreAI + " time remaining " + Math.Truncate(gameTime);
-
-                paddleAI.Move(ball.Position);
-
-                ball.Update((float)e.Time);
-                paddleAI.Update((float)e.Time);
-
-                CollisionDetection();
-                if (GoalDetection())
-                {
-                    ResetGame();
-                }
-                gameTime -= (1.0 * e.Time);
-            }
-            else
-            {
-                sceneManager.StartMenu();
-            }
-            */
         }
-
-        /*
-        private void CollisionDetection()
-        {
-            // PaddleTwo
-            if ((paddleAI.Position.X - ball.Position.X) < ball.Radius &&
-               ball.Position.Y > (paddleAI.Position.Y - 35.0f) &&
-               ball.Position.Y < (paddleAI.Position.Y + 35.0f))
-            {
-                ball.Position = new Vector2(paddleAI.Position.X - ball.Radius, ball.Position.Y);
-                ball.Velocity = new Vector2(ball.Velocity.X * -1.0f, ball.Velocity.Y) * 2.0f;
-            }
-            // PaddleOne
-            if ((ball.Position.X - paddlePlayer.Position.X) < ball.Radius &&
-               ball.Position.Y > (paddlePlayer.Position.Y - 35.0f) &&
-               ball.Position.Y < (paddlePlayer.Position.Y + 35.0f))
-            {
-                ball.Position = new Vector2(paddlePlayer.Position.X + ball.Radius, ball.Position.Y);
-                ball.Velocity = new Vector2(ball.Velocity.X * -1.0f, ball.Velocity.Y) * 2.0f;
-            }
-        }
-        */
-
         public void Render(FrameEventArgs e)
         {
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);

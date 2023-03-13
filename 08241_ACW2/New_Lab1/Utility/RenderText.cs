@@ -38,6 +38,7 @@ namespace PongGame.Utility
 
         public void RenderTextOnScreen(string text, float x, float y)
         {
+            textGFX.ResetClip();
             textGFX.DrawString(text, new Font("Arial", 20), Brushes.White, x, y);
 
             // Enable the texture

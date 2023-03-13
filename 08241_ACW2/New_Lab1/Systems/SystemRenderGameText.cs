@@ -14,9 +14,9 @@ namespace PongGame.Systems
 
         private readonly RenderText m_RenderText;
 
-        public SystemRenderGameText()
+        public SystemRenderGameText(RenderText renderText)
         {
-            m_RenderText = new RenderText(SceneManager.WindowHeight, SceneManager.WindowHeight);
+            m_RenderText = renderText;
         }
 
         public void OnAction(EntityManager entityManager)
