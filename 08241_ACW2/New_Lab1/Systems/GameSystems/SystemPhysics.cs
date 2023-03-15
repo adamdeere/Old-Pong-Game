@@ -44,9 +44,9 @@ namespace PongGame.Systems
                 position.Y = 1.0f;
                 physics.Velocity = UpdateVelocity(velocity);
             }
-            else if (position.Y > SceneManager.WindowHeight)
+            else if (position.Y > Game.WindowHeight)
             {
-                position.Y = SceneManager.WindowHeight - 1.0f;
+                position.Y = Game.WindowHeight - 1.0f;
                 physics.Velocity = UpdateVelocity(velocity);
             }
             return position;

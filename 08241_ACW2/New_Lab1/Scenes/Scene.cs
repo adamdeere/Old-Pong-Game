@@ -2,9 +2,9 @@
 {
     internal class Scene
     {
-        protected SceneManager sceneManager;
+        protected Game sceneManager;
 
-        public Scene(SceneManager sceneManager)
+        public Scene(Game sceneManager)
         {
             this.sceneManager = sceneManager;
         }

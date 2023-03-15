@@ -69,6 +69,7 @@
     <Compile Include="Components\ComponentBallCollsion.cs" />
     <Compile Include="Components\ComponentPhysics.cs" />
     <Compile Include="Components\ComponentScoreData.cs" />
+    <Compile Include="Components\ComponentSecondInput.cs" />
     <Compile Include="Components\ComponentTransform.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="GameObjects\AIPaddle.cs" />
@@ -78,10 +79,12 @@
     <Compile Include="GameObjects\GameManagerObject.cs" />
     <Compile Include="GameObjects\PlayerTwoPaddle.cs" />
     <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\SceneManager.cs" />
     <Compile Include="Managers\SystemManager.cs" />
-    <Compile Include="Scenes\IScene.cs" />
     <Compile Include="GameObjects\PlayerPaddle.cs" />
-    <Compile Include="SceneManager.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Scenes\IScene.cs" />
+    <Compile Include="Scenes\LocalMultiPlayerScene.cs" />
     <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Scenes\GameScene.cs" />
     <Compile Include="Main.cs" />

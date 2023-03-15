@@ -1,18 +1,17 @@
 ﻿using OpenTK;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
-using PongGame.GameObjects;
 using PongGame.Managers;
-using PongGame.Scenes;
-using PongGame.Systems;
 using PongGame.Systems.GameSystems;
+using PongGame.Systems;
 using PongGame.Utility;
 using System;
+using PongGame.GameObjects;
 using System.Drawing;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 
-namespace PongGame
+namespace PongGame.Scenes
 {
-    internal class GameScene : IScene
+    internal class LocalMultiPlayerScene : IScene
     {
         private double gameTime = 30;
 
@@ -41,8 +40,7 @@ namespace PongGame
         private readonly CameraObject m_CamObject;
         private int m_Width, m_Height;
 
-        public GameScene()
-
+        public LocalMultiPlayerScene() 
         {
             m_Width = Game.WindowWidth;
             m_Height = Game.WindowHeight;
@@ -53,6 +51,23 @@ namespace PongGame
             m_RenderText = new RenderText(Game.WindowWidth, 100);
             CreateEntities();
             CreateSystems();
+        }  
+        public void Load(EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Render(FrameEventArgs e)
+        {
+            GL.Viewport(0, 0, m_Width, m_Height);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            systemManager.ActionRenderSystems(entityManager);
+        }
+
+        public void Update(FrameEventArgs e)
+        {
+            systemManager.ActionPlayerInputSystems(entityManager, Keyboard.GetState(), (float)e.Time);
+            systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
         }
 
         private void CreateEntities()
@@ -61,7 +76,7 @@ namespace PongGame
             int ball = LoadVerts.LoadModelVerts(ballVertData, coldata);
 
             entityManager.AddEntity(new PlayerPaddle("PaddleOne", paddle));
-            entityManager.AddEntity(new AIPaddle("PaddleTwo", paddle));
+            entityManager.AddEntity(new PlayerTwoPaddle("PaddleTwo", paddle));
             entityManager.AddEntity(new Ball("Ball", ball));
             entityManager.AddEntity(new GameManagerObject("GameManager", gameTime));
         }
@@ -76,27 +91,8 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemCollsion());
             systemManager.AddUpdateSystem(new SystemGoalDetection());
             systemManager.AddUpdateSystem(new SystemGameManager(m_RenderText));
-            systemManager.AddUpdateSystem(new SystemAI());
             // add input systems
             systemManager.AddInputSystem(new SystemPlayerInput());
-        }
-
-        public void Update(FrameEventArgs e)
-        {
-            systemManager.ActionPlayerInputSystems(entityManager, Keyboard.GetState(), (float)e.Time);
-            systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
-        }
-
-        public void Render(FrameEventArgs e)
-        {
-            GL.Viewport(0, 0, m_Width, m_Height);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            systemManager.ActionRenderSystems(entityManager);
-        }
-
-        public void Load(EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

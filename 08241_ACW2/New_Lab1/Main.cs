@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            using (SceneManager sceneManager = new SceneManager())
+            using (Game sceneManager = new Game())
             {
                 sceneManager.Run(60.0f);
             }
