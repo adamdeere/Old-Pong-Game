@@ -84,6 +84,7 @@
     <Compile Include="GameObjects\PlayerPaddle.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Scenes\IScene.cs" />
+    <Compile Include="Scenes\LocalMultiPlayerScene.cs" />
     <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Scenes\GameScene.cs" />
     <Compile Include="Main.cs" />

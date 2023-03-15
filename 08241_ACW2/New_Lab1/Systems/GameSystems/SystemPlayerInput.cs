@@ -14,7 +14,7 @@ namespace PongGame.Systems.GameSystems
              ComponentTypes.COMPONENT_INPUT;
 
         private const ComponentTypes MASKTWO =
-             ComponentTypes.COMPONENT_INPUT;
+             ComponentTypes.COMPONENT_SECOND_INPUT;
 
         public void OnAction(EntityManager entityManager, KeyboardState keyState, float dt)
         {
@@ -43,7 +43,7 @@ namespace PongGame.Systems.GameSystems
                 }
                 else if ((entity.Mask & MASKTWO) == MASKTWO)
                 {
-                    if (entity.FindComponent(ComponentTypes.COMPONENT_INPUT) is ComponentInput input
+                    if (entity.FindComponent(ComponentTypes.COMPONENT_SECOND_INPUT) is ComponentSecondInput input
                      && entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) is ComponentTransform transform)
                     {
                         Vector2 pos = transform.Position;
