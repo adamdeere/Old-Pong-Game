@@ -14,17 +14,19 @@ namespace PongGame.Systems
 
         private readonly SceneManager m_SceneManager;
         private readonly RenderText m_RenderText;
+
         public SystemGameManager(SceneManager sceneManager, RenderText renderText)
         {
-            m_SceneManager = sceneManager; 
+            m_SceneManager = sceneManager;
             m_RenderText = renderText;
         }
+
         public void OnAction(EntityManager entityManager, float dt)
         {
             foreach (var entity in entityManager.Entities())
             {
                 if ((entity.Mask & MASK) == MASK)
-                { 
+                {
                     ComponentGameData data = entity.FindComponent(ComponentTypes.COMPONENT_GAME_MANAGER) as ComponentGameData;
 
                     if (data != null)
@@ -34,7 +36,7 @@ namespace PongGame.Systems
                         {
                             string time = "Time remaining: " + Math.Truncate(gameTime);
                             m_RenderText.RenderTextOnScreen(time, 0, 0);
-                           
+
                             data.GameTime -= 1.0 * dt;
                         }
                         else

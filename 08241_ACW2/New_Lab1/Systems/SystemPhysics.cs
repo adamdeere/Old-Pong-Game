@@ -1,7 +1,6 @@
 ﻿using OpenTK;
 using PongGame.Components;
 using PongGame.Managers;
-using System.Collections.Generic;
 
 namespace PongGame.Systems
 {

@@ -17,6 +17,7 @@ namespace PongGame
         private readonly EntityManager entityManager;
         private readonly SystemManager systemManager;
         private readonly RenderText m_RenderText;
+
         private readonly Vector3[] vertdata = new Vector3[] {
                 new Vector3(-10f, +30f, 0f),
                 new Vector3(-10f, -30f, 0f),
@@ -122,6 +123,7 @@ namespace PongGame
         {
             systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
         }
+
         public void Render(FrameEventArgs e)
         {
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);

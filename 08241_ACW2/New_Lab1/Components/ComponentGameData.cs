@@ -4,9 +4,10 @@
     {
         public ComponentTypes ComponentType => ComponentTypes.COMPONENT_GAME_MANAGER;
         private double m_GameTime;
-        public ComponentGameData(double gameTime) 
+
+        public ComponentGameData(double gameTime)
         {
-            m_GameTime= gameTime;
+            m_GameTime = gameTime;
         }
 
         public double GameTime

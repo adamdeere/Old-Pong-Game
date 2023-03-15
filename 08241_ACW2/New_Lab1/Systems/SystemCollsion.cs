@@ -35,11 +35,12 @@ namespace PongGame.Systems
 
                     ComponentTransform paddleTwoTransform = GetPaddleTransform(entityManager, "PaddleTwo");
                     ComponentTransform paddlePlayerTrans = GetPaddleTransform(entityManager, "PaddleOne");
-                    
+
                     CollsionReaction(paddleTwoTransform, paddlePlayerTrans, ballPhysics, ballTransform, 10);
                 }
             }
         }
+
         private ComponentTransform GetPaddleTransform(EntityManager entityManager, string name)
         {
             Entity paddleTwo = entityManager.FindEntity(name);
@@ -52,8 +53,8 @@ namespace PongGame.Systems
             });
 
             return paddletwoTransform as ComponentTransform;
-
         }
+
         private void CollsionReaction(ComponentTransform paddleAI, ComponentTransform paddlePlayer, ComponentPhysics ball, ComponentTransform ballPos, int ballRadius)
         {
             // PaddleTwo

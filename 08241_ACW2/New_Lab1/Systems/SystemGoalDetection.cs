@@ -28,11 +28,10 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    
                     ComponentTransform transform = entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
 
                     Vector2 position = transform.Position;
-                    
+
                     ComponentPhysics physics = entity.FindComponent(ComponentTypes.COMPONENT_PHYSICS) as ComponentPhysics;
 
                     // AI side

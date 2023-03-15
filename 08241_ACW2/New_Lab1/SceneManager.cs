@@ -11,7 +11,9 @@ namespace PongGame
         private static int height = 512;
 
         public delegate void SceneDelegate(FrameEventArgs e);
+
         public delegate void SceneLoadDelegate(EventArgs e);
+
         public SceneDelegate renderer;
         public SceneDelegate updater;
         public SceneLoadDelegate loader;
@@ -30,7 +32,7 @@ namespace PongGame
             GL.Enable(EnableCap.DepthTest);
             loader(e);
         }
-        
+
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);

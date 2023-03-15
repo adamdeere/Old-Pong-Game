@@ -8,6 +8,11 @@ namespace PongGame.Managers
         private readonly List<Entity> m_EntityList;
         private CameraObject m_CameraObject;
 
+        public EntityManager()
+        {
+            m_EntityList = new List<Entity>();
+        }
+
         public EntityManager(CameraObject cameraObject)
         {
             m_EntityList = new List<Entity>();
