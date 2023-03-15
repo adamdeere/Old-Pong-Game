@@ -60,11 +60,11 @@ namespace PongGame.Managers
             m_UpdateSystems.Add(system);
         }
 
-        public void ActionInputSystems(SceneManager sceneManager, KeyboardState state)
+        public void ActionInputSystems(KeyboardState state)
         {
             foreach (var system in m_InputSystems)
             {
-                system.OnAction(sceneManager, state);
+                system.OnAction(state);
             }
         }
 

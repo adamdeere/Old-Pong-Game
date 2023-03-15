@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK;
+using System;
 
 namespace PongGame.Scenes
 {
-    internal class ISceneRefactor
+    internal interface ISceneRefactor
     {
+        void Load(EventArgs e);
+        void Render(FrameEventArgs e);
+        void Update(FrameEventArgs e);
     }
 }

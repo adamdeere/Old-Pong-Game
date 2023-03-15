@@ -4,7 +4,7 @@ namespace PongGame.Systems.Interfaces
 {
     internal interface IMenuInputSystems
     {
-        void OnAction(SceneManager sceneManager, KeyboardState keyState);
+        void OnAction(KeyboardState keyState);
 
         // Property signatures:
         string Name

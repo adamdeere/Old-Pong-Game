@@ -1,4 +1,5 @@
 ﻿using OpenTK.Input;
+using PongGame.Managers;
 using PongGame.Systems.Interfaces;
 
 namespace PongGame.Systems
@@ -7,11 +8,11 @@ namespace PongGame.Systems
     {
         public string Name => "SystemMenuSelect";
 
-        public void OnAction(SceneManager sceneManager, KeyboardState keyState)
+        public void OnAction(KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Key.Number1))
             {
-                sceneManager.StartNewGame();
+                SceneManagerRefactor.ChangeScene(new GameScene());
             }
         }
     }

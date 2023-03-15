@@ -11,13 +11,11 @@ namespace PongGame.Systems
 
         private const ComponentTypes MASK =
               ComponentTypes.COMPONENT_GAME_MANAGER;
-
-        private readonly SceneManager m_SceneManager;
+       
         private readonly RenderText m_RenderText;
 
-        public SystemGameManager(SceneManager sceneManager, RenderText renderText)
+        public SystemGameManager(RenderText renderText)
         {
-            m_SceneManager = sceneManager;
             m_RenderText = renderText;
         }
 
@@ -27,9 +25,7 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    ComponentGameData data = entity.FindComponent(ComponentTypes.COMPONENT_GAME_MANAGER) as ComponentGameData;
-
-                    if (data != null)
+                    if (entity.FindComponent(ComponentTypes.COMPONENT_GAME_MANAGER) is ComponentGameData data)
                     {
                         double gameTime = data.GameTime;
                         if (gameTime > 0)
@@ -41,7 +37,7 @@ namespace PongGame.Systems
                         }
                         else
                         {
-                            m_SceneManager.StartMenu();
+                            SceneManagerRefactor.ChangeScene(new MainMenuScene());
                         }
                     }
                 }

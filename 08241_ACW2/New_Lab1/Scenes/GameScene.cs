@@ -3,14 +3,16 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using PongGame.GameObjects;
 using PongGame.Managers;
+using PongGame.Scenes;
 using PongGame.Systems;
 using PongGame.Systems.GameSystems;
 using PongGame.Utility;
+using System;
 using System.Drawing;
 
 namespace PongGame
 {
-    internal class GameScene : Scene, IScene
+    internal class GameScene : ISceneRefactor
     {
         private double gameTime = 30;
 
@@ -37,15 +39,14 @@ namespace PongGame
                 new Vector3(+10f, +10f, 0f) };
 
         private readonly CameraObject m_CamObject;
-
-        public GameScene(SceneManager sceneManager)
-            : base(sceneManager)
-        {
-            // Set the Render and Update delegates to the Update and Render methods of this class
-            sceneManager.renderer = Render;
-            sceneManager.updater = Update;
+        private int m_Width, m_Height;
+        public GameScene()
            
-            m_CamObject = new CameraObject(sceneManager.Width, sceneManager.Height);
+        {
+
+            m_Width = SceneManager.WindowWidth;
+            m_Height = SceneManager.WindowHeight;
+            m_CamObject = new CameraObject(m_Width, m_Height);
             GL.ClearColor(Color.Black);
             entityManager = new EntityManager(m_CamObject);
             systemManager = new SystemManager();
@@ -74,7 +75,7 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemPhysics());
             systemManager.AddUpdateSystem(new SystemCollsion());
             systemManager.AddUpdateSystem(new SystemGoalDetection());
-            systemManager.AddUpdateSystem(new SystemGameManager(sceneManager, m_RenderText));
+            systemManager.AddUpdateSystem(new SystemGameManager(m_RenderText));
             systemManager.AddUpdateSystem(new SystemAI());
             // add input systems
             systemManager.AddInputSystem(new SystemPlayerInput());
@@ -87,9 +88,14 @@ namespace PongGame
 
         public void Render(FrameEventArgs e)
         {
-            GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
+            GL.Viewport(0, 0, m_Width, m_Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             systemManager.ActionRenderSystems(entityManager);
+        }
+
+        public void Load(EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
