@@ -83,7 +83,10 @@
     <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="GameObjects\PlayerPaddle.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Scenes\HighScoreScene.cs" />
+    <Compile Include="Scenes\HostGameScene.cs" />
     <Compile Include="Scenes\IScene.cs" />
+    <Compile Include="Scenes\JoinGameScene.cs" />
     <Compile Include="Scenes\LocalMultiPlayerScene.cs" />
     <Compile Include="Scenes\MainMenuScene.cs" />
     <Compile Include="Scenes\GameScene.cs" />
@@ -135,7 +138,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

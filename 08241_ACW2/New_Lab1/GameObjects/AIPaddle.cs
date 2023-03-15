@@ -11,7 +11,7 @@ namespace PongGame
             AddComponent(new ComponentModel(paddle));
             AddComponent(new ComponentTransform(Game.WindowWidth - 40, (int)(Game.WindowHeight * 0.5)));
             AddComponent(new ComponentAI());
-            AddComponent(new ComponentScoreData("AI", 600f));
+            AddComponent(new ComponentScoreData("AI", 700f));
         }
     }
 }

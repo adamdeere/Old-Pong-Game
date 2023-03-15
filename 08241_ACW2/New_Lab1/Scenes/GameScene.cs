@@ -39,7 +39,7 @@ namespace PongGame
                 new Vector3(+10f, +10f, 0f) };
 
         private readonly CameraObject m_CamObject;
-        private int m_Width, m_Height;
+        private readonly int m_Width, m_Height;
 
         public GameScene()
 

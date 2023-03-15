@@ -15,9 +15,21 @@ namespace PongGame.Systems
             {
                 SceneManager.ChangeScene(new GameScene());
             }
-            if (keyState.IsKeyDown(Key.Number2))
+            else if (keyState.IsKeyDown(Key.Number2))
             {
                 SceneManager.ChangeScene(new LocalMultiPlayerScene());
+            }
+            else if (keyState.IsKeyDown(Key.Number3))
+            {
+                SceneManager.ChangeScene(new HostGameScene());
+            }
+            else if (keyState.IsKeyDown(Key.Number4))
+            {
+                SceneManager.ChangeScene(new JoinGameScene());
+            }
+            else if (keyState.IsKeyDown(Key.Number5))
+            {
+                SceneManager.ChangeScene(new HighScoreScene());
             }
         }
     }

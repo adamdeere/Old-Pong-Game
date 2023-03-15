@@ -1,13 +1,13 @@
 ﻿using OpenTK;
-using PongGame.Managers;
-using PongGame.Systems.GameSystems;
-using PongGame.Systems;
-using PongGame.Utility;
-using System;
-using PongGame.GameObjects;
-using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using PongGame.GameObjects;
+using PongGame.Managers;
+using PongGame.Systems;
+using PongGame.Systems.GameSystems;
+using PongGame.Utility;
+using System;
+using System.Drawing;
 
 namespace PongGame.Scenes
 {
@@ -40,7 +40,7 @@ namespace PongGame.Scenes
         private readonly CameraObject m_CamObject;
         private int m_Width, m_Height;
 
-        public LocalMultiPlayerScene() 
+        public LocalMultiPlayerScene()
         {
             m_Width = Game.WindowWidth;
             m_Height = Game.WindowHeight;
@@ -51,7 +51,8 @@ namespace PongGame.Scenes
             m_RenderText = new RenderText(Game.WindowWidth, 100);
             CreateEntities();
             CreateSystems();
-        }  
+        }
+
         public void Load(EventArgs e)
         {
             throw new NotImplementedException();
