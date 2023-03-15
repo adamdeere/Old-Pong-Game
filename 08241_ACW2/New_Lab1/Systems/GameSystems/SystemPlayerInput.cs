@@ -26,10 +26,14 @@ namespace PongGame.Systems.GameSystems
                         if (keyState.IsKeyDown(Key.W))
                         {
                             pos.Y += input.Speed * dt;
+                            if (pos.Y > SceneManager.WindowHeight)
+                                pos.Y = SceneManager.WindowHeight;
                         }
                         if (keyState.IsKeyDown(Key.S))
                         {
                             pos.Y -= input.Speed * dt;
+                            if (pos.Y < 0)
+                                pos.Y = 0;
                         }
                         transform.Position = pos;
                     }

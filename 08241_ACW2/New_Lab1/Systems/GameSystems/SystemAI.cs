@@ -20,7 +20,7 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    Entity ball = entityManager.FindEntity("Ball");
+                    GameObject ball = entityManager.FindEntity("Ball");
 
                     ComponentTransform transform = entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
                     ComponentTransform ballTransform = ball.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;

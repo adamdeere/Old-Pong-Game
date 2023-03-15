@@ -1,21 +1,17 @@
-﻿namespace PongGame
+﻿using PongGame.Components;
+using PongGame.GameObjects;
+
+namespace PongGame
 {
-    internal class PlayerPaddle : Paddle
+    internal class PlayerPaddle : GameObject
     {
-        public PlayerPaddle(int x, int y) : base(x, y)
+        public PlayerPaddle(string name, int paddle)
+            : base(name)
         {
-        }
-
-        public override void Update(float dt)
-        {
-        }
-
-        public void Move(int dy)
-        {
-            position.Y += dy;
-            if (position.Y < 0) position.Y = 0;
-            else if (position.Y > SceneManager.WindowHeight)
-                position.Y = SceneManager.WindowHeight;
+            AddComponent(new ComponentModel(paddle));
+            AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
+            AddComponent(new ComponentInput(100));
+            AddComponent(new ComponentScoreData("Player", 400f));
         }
     }
 }

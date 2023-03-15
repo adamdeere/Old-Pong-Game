@@ -1,7 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using PongGame.Components;
 using PongGame.GameObjects;
 using PongGame.Managers;
 using PongGame.Systems;
@@ -63,37 +62,15 @@ namespace PongGame
             int paddle = LoadVerts.LoadModelVerts(vertdata, coldata);
             int ball = LoadVerts.LoadModelVerts(ballVertData, coldata);
 
-            Entity newEntity;
-            newEntity = new Entity("PaddleOne");
-            newEntity.AddComponent(new ComponentModel(paddle));
-            newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
-            newEntity.AddComponent(new ComponentInput(100));
-            newEntity.AddComponent(new ComponentScoreData("Player", 400f));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("PaddleTwo");
-            newEntity.AddComponent(new ComponentModel(paddle));
-            newEntity.AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
-            newEntity.AddComponent(new ComponentAI());
-            newEntity.AddComponent(new ComponentScoreData("AI", 600f));
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("Ball");
-            newEntity.AddComponent(new ComponentModel(ball));
-            newEntity.AddComponent(new ComponentTransform((int)(SceneManager.WindowWidth * 0.5), (int)(SceneManager.WindowHeight * 0.5)));
-            newEntity.AddComponent(new ComponentPhysics());
-            newEntity.AddComponent(new ComponentBallCollsion());
-            newEntity.AddComponent(new ComponentCollsion());
-            entityManager.AddEntity(newEntity);
-
-            newEntity = new Entity("GameManager");
-            newEntity.AddComponent(new ComponentGameData(gameTime));
-            entityManager.AddEntity(newEntity);
+            entityManager.AddEntity(new PlayerPaddle("PaddleOne", paddle));
+            entityManager.AddEntity(new AIPaddle("PaddleTwo", paddle));
+            entityManager.AddEntity(new Ball("Ball", ball));
+            entityManager.AddEntity(new GameManagerObject("GameManager", gameTime));
         }
 
         private void CreateSystems()
         {
-            // add render system
+            // add render systems
             systemManager.AddRenderSystem(new SystemRender());
             systemManager.AddRenderSystem(new SystemRenderGameText(m_RenderText));
             // add update systems
@@ -102,7 +79,7 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemGoalDetection());
             systemManager.AddUpdateSystem(new SystemGameManager(sceneManager, m_RenderText));
             systemManager.AddUpdateSystem(new SystemAI());
-
+            // add input systems
             systemManager.AddInputSystem(new SystemPlayerInput());
         }
 

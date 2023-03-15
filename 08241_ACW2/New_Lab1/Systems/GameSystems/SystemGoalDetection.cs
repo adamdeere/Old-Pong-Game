@@ -50,7 +50,7 @@ namespace PongGame.Systems
             }
         }
 
-        private void AddScore(Entity entity)
+        private void AddScore(GameObject entity)
         {
             List<IComponent> components = entity.Components;
             IComponent scoreComponent = components.Find(delegate (IComponent component)

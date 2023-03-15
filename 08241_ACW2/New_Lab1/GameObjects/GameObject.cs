@@ -1,41 +1,52 @@
-﻿using OpenTK;
+﻿using PongGame.Components;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace PongGame
+namespace PongGame.GameObjects
 {
-    internal abstract class GameObject
+    internal class GameObject
     {
-        protected Vector2 position;
-        protected Vector2 velocity;
+        private string m_Name;
+        private readonly List<IComponent> componentList = new List<IComponent>();
+        private ComponentTypes mask;
 
-        public Vector2 Position
+        public GameObject(string name)
         {
-            get { return position; }
-            set { position = value; }
+            m_Name = name;
         }
 
-        public Vector2 Velocity
+        public IComponent FindComponent(ComponentTypes type)
         {
-            get { return velocity; }
-            set { velocity = value; }
+            IComponent transformComponent = componentList.Find(delegate (IComponent component)
+            {
+                return component.ComponentType == type;
+            });
+
+            return transformComponent;
         }
 
-        public abstract void Render(Matrix4 projectionMatrix);
+        public void AddComponent(IComponent component)
+        {
+            Debug.Assert(component != null, "Component cannot be null");
 
-        public abstract void Update(float dt);
+            componentList.Add(component);
+            mask |= component.ComponentType;
+        }
 
-        // Graphics
-        protected int pgmID;
+        public string Name
+        {
+            get { return m_Name; }
+            set { m_Name = value; }
+        }
 
-        protected int vsID;
-        protected int fsID;
-        protected int attribute_vcol;
-        protected int attribute_vpos;
-        protected int uniform_mview;
-        protected int vao_Handle;
-        protected int vbo_position;
-        protected int vbo_color;
-        protected Vector3[] vertdata;
-        protected Vector3[] coldata;
-        protected Matrix4 viewMatrix;
+        public ComponentTypes Mask
+        {
+            get { return mask; }
+        }
+
+        public List<IComponent> Components
+        {
+            get { return componentList; }
+        }
     }
 }
