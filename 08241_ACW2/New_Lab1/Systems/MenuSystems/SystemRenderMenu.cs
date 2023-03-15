@@ -11,7 +11,7 @@ namespace PongGame.Systems.MenuSystems
 
         public SystemRenderMenu()
         {
-            m_RenderText = new RenderText(SceneManager.WindowWidth, SceneManager.WindowHeight);
+            m_RenderText = new RenderText(Game.WindowWidth, Game.WindowHeight);
         }
 
         public void OnAction(EntityManager entityManager)

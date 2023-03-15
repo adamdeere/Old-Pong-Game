@@ -12,7 +12,7 @@ namespace PongGame.Managers
         private readonly List<IMenuInputSystems> m_InputSystems;
 
         private readonly List<IControllerInputSystems> m_PlayerInputSystems;
-        private readonly SceneManager m_SceneManager;
+        private readonly Game m_SceneManager;
 
         public SystemManager()
         {
@@ -22,7 +22,7 @@ namespace PongGame.Managers
             m_PlayerInputSystems = new List<IControllerInputSystems>();
         }
 
-        public SystemManager(SceneManager sceneManager)
+        public SystemManager(Game sceneManager)
         {
             m_SceneManager = sceneManager;
             m_RenderSystems = new List<IRenderSystems>();

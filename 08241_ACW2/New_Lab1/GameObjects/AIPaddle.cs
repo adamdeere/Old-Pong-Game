@@ -9,7 +9,7 @@ namespace PongGame
             : base(name)
         {
             AddComponent(new ComponentModel(paddle));
-            AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
+            AddComponent(new ComponentTransform(Game.WindowWidth - 40, (int)(Game.WindowHeight * 0.5)));
             AddComponent(new ComponentAI());
             AddComponent(new ComponentScoreData("AI", 600f));
         }

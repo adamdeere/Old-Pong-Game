@@ -5,17 +5,18 @@ using System.Collections.Generic;
 
 namespace PongGame.Managers
 {
-    internal static class SceneManagerRefactor
+    internal static class SceneManager
     {
-        private static List<ISceneRefactor> m_SceneList = new List<ISceneRefactor>();
+        private static List<IScene> m_SceneList = new List<IScene>();
 
-        public static void ChangeScene(ISceneRefactor scene)
+        public static void ChangeScene(IScene scene)
         {
             if (m_SceneList.Count > 0)
                 m_SceneList.Clear();
-           
+
             m_SceneList.Add(scene);
         }
+
         public static void LoadScene(EventArgs e)
         {
             foreach (var item in m_SceneList)
@@ -23,6 +24,7 @@ namespace PongGame.Managers
                 item.Load(e);
             }
         }
+
         public static void UpdateScene(FrameEventArgs e)
         {
             for (int i = 0; i < m_SceneList.Count; i++)

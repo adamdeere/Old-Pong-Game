@@ -9,7 +9,7 @@ using System;
 
 namespace PongGame
 {
-    internal class MainMenuScene : ISceneRefactor
+    internal class MainMenuScene : IScene
     {
         private SystemManager m_SystemManager;
         private EntityManager m_EntityManager;
@@ -24,7 +24,6 @@ namespace PongGame
 
         public void Load(EventArgs e)
         {
-            
         }
 
         public void Update(FrameEventArgs e)
@@ -34,8 +33,8 @@ namespace PongGame
 
         public void Render(FrameEventArgs e)
         {
-            int width = SceneManager.WindowWidth;
-            int height = SceneManager.WindowHeight;
+            int width = Game.WindowWidth;
+            int height = Game.WindowHeight;
             GL.Viewport(0, 0, width, height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.MatrixMode(MatrixMode.Projection);

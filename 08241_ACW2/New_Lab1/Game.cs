@@ -2,49 +2,54 @@
 using OpenTK.Graphics.OpenGL;
 using PongGame.Managers;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace PongGame
 {
-    internal class SceneManager : GameWindow
-    { 
+    internal class Game : GameWindow
+    {
         private static int width = 1024;
         private static int height = 512;
 
-        public SceneManager()
+        public Game()
         {
             Width = width;
             Height = height;
-            SceneManagerRefactor.ChangeScene(new MainMenuScene());
+            SceneManager.ChangeScene(new MainMenuScene());
         }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             GL.Enable(EnableCap.DepthTest);
-            SceneManagerRefactor.LoadScene(e);
+            SceneManager.LoadScene(e);
         }
+
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-           SceneManagerRefactor.UpdateScene(e);
+            SceneManager.UpdateScene(e);
         }
+
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
 
-           SceneManagerRefactor.RenderScene(e);
+            SceneManager.RenderScene(e);
             GL.Flush();
             SwapBuffers();
         }
+
         public static int WindowWidth
         {
             get { return width; }
         }
+
         public static int WindowHeight
         {
             get { return height; }
         }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

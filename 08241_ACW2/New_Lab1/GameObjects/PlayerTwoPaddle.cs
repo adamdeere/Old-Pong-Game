@@ -8,7 +8,7 @@ namespace PongGame.GameObjects
             : base(name)
         {
             AddComponent(new ComponentModel(paddle));
-            AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
+            AddComponent(new ComponentTransform(Game.WindowWidth - 40, (int)(Game.WindowHeight * 0.5)));
             AddComponent(new ComponentSecondInput(100));
             AddComponent(new ComponentScoreData("Player", 400f));
         }

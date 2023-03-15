@@ -12,7 +12,7 @@ namespace PongGame.Systems
         {
             if (keyState.IsKeyDown(Key.Number1))
             {
-                SceneManagerRefactor.ChangeScene(new GameScene());
+                SceneManager.ChangeScene(new GameScene());
             }
         }
     }

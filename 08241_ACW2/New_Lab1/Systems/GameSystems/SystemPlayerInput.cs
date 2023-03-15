@@ -29,8 +29,8 @@ namespace PongGame.Systems.GameSystems
                         if (keyState.IsKeyDown(Key.W))
                         {
                             pos.Y += input.Speed * dt;
-                            if (pos.Y > SceneManager.WindowHeight)
-                                pos.Y = SceneManager.WindowHeight;
+                            if (pos.Y > Game.WindowHeight)
+                                pos.Y = Game.WindowHeight;
                         }
                         if (keyState.IsKeyDown(Key.S))
                         {
@@ -50,8 +50,8 @@ namespace PongGame.Systems.GameSystems
                         if (keyState.IsKeyDown(Key.Up))
                         {
                             pos.Y += input.Speed * dt;
-                            if (pos.Y > SceneManager.WindowHeight)
-                                pos.Y = SceneManager.WindowHeight;
+                            if (pos.Y > Game.WindowHeight)
+                                pos.Y = Game.WindowHeight;
                         }
                         if (keyState.IsKeyDown(Key.Down))
                         {

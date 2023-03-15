@@ -11,7 +11,7 @@ namespace PongGame.Systems
 
         private const ComponentTypes MASK =
               ComponentTypes.COMPONENT_GAME_MANAGER;
-       
+
         private readonly RenderText m_RenderText;
 
         public SystemGameManager(RenderText renderText)
@@ -37,7 +37,7 @@ namespace PongGame.Systems
                         }
                         else
                         {
-                            SceneManagerRefactor.ChangeScene(new MainMenuScene());
+                            SceneManager.ChangeScene(new MainMenuScene());
                         }
                     }
                 }

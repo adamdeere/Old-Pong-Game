@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace PongGame
 {
-    internal class GameScene : ISceneRefactor
+    internal class GameScene : IScene
     {
         private double gameTime = 30;
 
@@ -40,17 +40,17 @@ namespace PongGame
 
         private readonly CameraObject m_CamObject;
         private int m_Width, m_Height;
-        public GameScene()
-           
-        {
 
-            m_Width = SceneManager.WindowWidth;
-            m_Height = SceneManager.WindowHeight;
+        public GameScene()
+
+        {
+            m_Width = Game.WindowWidth;
+            m_Height = Game.WindowHeight;
             m_CamObject = new CameraObject(m_Width, m_Height);
             GL.ClearColor(Color.Black);
             entityManager = new EntityManager(m_CamObject);
             systemManager = new SystemManager();
-            m_RenderText = new RenderText(SceneManager.WindowWidth, 100);
+            m_RenderText = new RenderText(Game.WindowWidth, 100);
             CreateEntities();
             CreateSystems();
         }
@@ -80,6 +80,7 @@ namespace PongGame
             // add input systems
             systemManager.AddInputSystem(new SystemPlayerInput());
         }
+
         public void Update(FrameEventArgs e)
         {
             systemManager.ActionPlayerInputSystems(entityManager, Keyboard.GetState(), (float)e.Time);

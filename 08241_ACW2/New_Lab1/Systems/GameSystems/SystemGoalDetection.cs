@@ -17,8 +17,8 @@ namespace PongGame.Systems
 
         public SystemGoalDetection()
         {
-            float x = (int)(SceneManager.WindowWidth * 0.5);
-            float y = (int)(SceneManager.WindowHeight * 0.5);
+            float x = (int)(Game.WindowWidth * 0.5);
+            float y = (int)(Game.WindowHeight * 0.5);
             resetPos = new Vector2(x, y);
         }
 
@@ -41,7 +41,7 @@ namespace PongGame.Systems
                         AddScore(entityManager.FindEntity("PaddleTwo"));
                     }
                     // Player side
-                    else if (position.X > SceneManager.WindowWidth)
+                    else if (position.X > Game.WindowWidth)
                     {
                         ResetBall(transform, physics);
                         AddScore(entityManager.FindEntity("PaddleOne"));
