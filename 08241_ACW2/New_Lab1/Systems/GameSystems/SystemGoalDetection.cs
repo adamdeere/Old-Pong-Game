@@ -28,11 +28,10 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    
                     ComponentTransform transform = entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
 
                     Vector2 position = transform.Position;
-                    
+
                     ComponentPhysics physics = entity.FindComponent(ComponentTypes.COMPONENT_PHYSICS) as ComponentPhysics;
 
                     // AI side
@@ -51,7 +50,7 @@ namespace PongGame.Systems
             }
         }
 
-        private void AddScore(Entity entity)
+        private void AddScore(GameObject entity)
         {
             List<IComponent> components = entity.Components;
             IComponent scoreComponent = components.Find(delegate (IComponent component)

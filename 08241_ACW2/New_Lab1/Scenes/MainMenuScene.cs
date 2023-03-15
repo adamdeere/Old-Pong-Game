@@ -1,15 +1,19 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using PongGame.Utility;
+using PongGame.Managers;
+using PongGame.Systems;
+using PongGame.Systems.MenuSystems;
+using System;
 
 namespace PongGame
 {
     internal class MainMenuScene : Scene, IScene
     {
-        private readonly RenderTextOnScreen m_RenderText;
+        private SystemManager m_SystemManager;
+        private EntityManager m_EntityManager;
 
-        public MainMenuScene(SceneManager sceneManager, RenderTextOnScreen renderText)
+        public MainMenuScene(SceneManager sceneManager)
             : base(sceneManager)
         {
             // Set the title of the window
@@ -17,41 +21,30 @@ namespace PongGame
             // Set the Render and Update delegates to the Update and Render methods of this class
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
-            m_RenderText = renderText;
+            sceneManager.loader = Load;
+        }
+
+        public void Load(EventArgs e)
+        {
+            m_SystemManager = new SystemManager();
+            m_EntityManager = new EntityManager();
+            m_SystemManager.AddInputSystem(new SystemMenuSelect());
+            m_SystemManager.AddRenderSystem(new SystemRenderMenu());
         }
 
         public void Update(FrameEventArgs e)
         {
-            SelectMenu(new KeyboardKeyEventArgs());
+            m_SystemManager.ActionInputSystems(sceneManager, Keyboard.GetState());
         }
 
         public void Render(FrameEventArgs e)
         {
             GL.Viewport(0, 0, sceneManager.Width, sceneManager.Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(0, sceneManager.Width, 0, sceneManager.Height, -1, 1);
-
-            if (m_RenderText.BMP != null)
-            {
-                m_RenderText.RenderText("welcome to pong", 0f, 0f);
-                m_RenderText.RenderText("1. single player game", 0f, 40f);
-                m_RenderText.RenderText("2. multyplayer game", 0f, 80f);
-                m_RenderText.RenderText("3. host networked game", 0f, 140f);
-                m_RenderText.RenderText("4 connect to networked game", 0f, 180f);
-                m_RenderText.RenderText("5. display high scores", 0, 220f);
-            }
-        }
-
-        public void SelectMenu(KeyboardKeyEventArgs e)
-        {
-            KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Key.Number1))
-            {
-                sceneManager.StartNewGame();
-            }
+            m_SystemManager.ActionRenderSystems(m_EntityManager);
         }
     }
 }

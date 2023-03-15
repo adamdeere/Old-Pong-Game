@@ -2,7 +2,6 @@
 using PongGame.Components;
 using PongGame.GameObjects;
 using PongGame.Managers;
-using System.Collections.Generic;
 
 namespace PongGame.Systems
 {
@@ -19,41 +18,25 @@ namespace PongGame.Systems
             {
                 if ((entity.Mask & MASK) == MASK)
                 {
-                    List<IComponent> components = entity.Components;
+                    ComponentTransform ballTransform = entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
 
-                    IComponent transformComponent = components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-                    });
-                    ComponentTransform ballTransform = transformComponent as ComponentTransform;
-                    IComponent physicsComponent = components.Find(delegate (IComponent component)
-                    {
-                        return component.ComponentType == ComponentTypes.COMPONENT_PHYSICS;
-                    });
-
-                    ComponentPhysics ballPhysics = physicsComponent as ComponentPhysics;
+                    ComponentPhysics ballPhysics = entity.FindComponent(ComponentTypes.COMPONENT_PHYSICS) as ComponentPhysics;
 
                     ComponentTransform paddleTwoTransform = GetPaddleTransform(entityManager, "PaddleTwo");
                     ComponentTransform paddlePlayerTrans = GetPaddleTransform(entityManager, "PaddleOne");
-                    
+
                     CollsionReaction(paddleTwoTransform, paddlePlayerTrans, ballPhysics, ballTransform, 10);
                 }
             }
         }
+
         private ComponentTransform GetPaddleTransform(EntityManager entityManager, string name)
         {
-            Entity paddleTwo = entityManager.FindEntity(name);
+            GameObject paddle = entityManager.FindEntity(name);
 
-            List<IComponent> playerTwoList = paddleTwo.Components;
-
-            IComponent paddletwoTransform = playerTwoList.Find(delegate (IComponent component)
-            {
-                return component.ComponentType == ComponentTypes.COMPONENT_TRANSFORM;
-            });
-
-            return paddletwoTransform as ComponentTransform;
-
+            return paddle.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) as ComponentTransform;
         }
+
         private void CollsionReaction(ComponentTransform paddleAI, ComponentTransform paddlePlayer, ComponentPhysics ball, ComponentTransform ballPos, int ballRadius)
         {
             // PaddleTwo

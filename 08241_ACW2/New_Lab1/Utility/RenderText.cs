@@ -5,22 +5,23 @@ using System.Drawing.Imaging;
 
 namespace PongGame.Utility
 {
-    internal class RenderTextOnScreen
+    internal class RenderText
     {
         private readonly Bitmap textBMP;
         private readonly int textTexture;
         private readonly Graphics textGFX;
-
+        private readonly Font font;
         private readonly int width, height;
+        private readonly Rectangle rect;
 
-        public RenderTextOnScreen(int width, int height)
+        public RenderText(int width, int height)
         {
             this.width = width;
             this.height = height;
             // Create Bitmap and OpenGL texture for rendering text
             textBMP = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb); // match window size
             textGFX = Graphics.FromImage(textBMP);
-            textGFX.Clear(Color.CornflowerBlue);
+            textGFX.Clear(Color.Black);
             textTexture = GL.GenTexture();
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, textTexture);
@@ -29,6 +30,8 @@ namespace PongGame.Utility
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textBMP.Width, textBMP.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
             GL.BindTexture(TextureTarget.Texture2D, 0);
             GL.Disable(EnableCap.Texture2D);
+            font = new Font("Arial", 20);
+            rect = new Rectangle(0, 0, textBMP.Width, textBMP.Height);
         }
 
         public Bitmap BMP
@@ -36,16 +39,16 @@ namespace PongGame.Utility
             get { return textBMP; }
         }
 
-        public void RenderText(string text, float x, float y)
+        public void RenderTextOnScreen(string text, float x, float y)
         {
-            textGFX.DrawString(text, new Font("Arial", 20), Brushes.White, x, y);
+            textGFX.DrawString(text, font, Brushes.White, x, y);
 
             // Enable the texture
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, textTexture);
 
-            BitmapData data = textBMP.LockBits(new Rectangle(0, 0, textBMP.Width, textBMP.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, (int)textBMP.Width, (int)textBMP.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+            BitmapData data = textBMP.LockBits(rect, ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textBMP.Width, (int)textBMP.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
             textBMP.UnlockBits(data);
 
             GL.Begin(PrimitiveType.Quads);

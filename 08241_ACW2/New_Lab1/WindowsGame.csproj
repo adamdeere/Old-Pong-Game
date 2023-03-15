@@ -74,8 +74,8 @@
     <Compile Include="GameObjects\AIPaddle.cs" />
     <Compile Include="GameObjects\Ball.cs" />
     <Compile Include="GameObjects\CameraObject.cs" />
-    <Compile Include="GameObjects\Entity.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameManagerObject.cs" />
     <Compile Include="GameObjects\PlayerTwoPaddle.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\SystemManager.cs" />
@@ -86,19 +86,23 @@
     <Compile Include="Scenes\GameScene.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameObjects\Paddle.cs" />
     <Compile Include="Scenes\Scene.cs" />
-    <Compile Include="Systems\IRenderSystems.cs" />
-    <Compile Include="Systems\IUpdateSystems.cs" />
-    <Compile Include="Systems\SystemAI.cs" />
-    <Compile Include="Systems\SystemCollsion.cs" />
-    <Compile Include="Systems\SystemGameManager.cs" />
-    <Compile Include="Systems\SystemGoalDetection.cs" />
-    <Compile Include="Systems\SystemPhysics.cs" />
+    <Compile Include="Systems\GameSystems\SystemPlayerInput.cs" />
+    <Compile Include="Systems\Interfaces\IControllerInputSystems.cs" />
+    <Compile Include="Systems\Interfaces\IMenuInputSystems.cs" />
+    <Compile Include="Systems\Interfaces\IRenderSystems.cs" />
+    <Compile Include="Systems\Interfaces\IUpdateSystems.cs" />
+    <Compile Include="Systems\MenuSystems\SystemRenderMenu.cs" />
+    <Compile Include="Systems\GameSystems\SystemAI.cs" />
+    <Compile Include="Systems\GameSystems\SystemCollsion.cs" />
+    <Compile Include="Systems\GameSystems\SystemGameManager.cs" />
+    <Compile Include="Systems\GameSystems\SystemGoalDetection.cs" />
+    <Compile Include="Systems\MenuSystems\SystemMenuSelect.cs" />
+    <Compile Include="Systems\GameSystems\SystemPhysics.cs" />
     <Compile Include="Systems\SystemRender.cs" />
     <Compile Include="Systems\SystemRenderGameText.cs" />
     <Compile Include="Utility\LoadVerts.cs" />
-    <Compile Include="Utility\RenderTextOnScreen.cs" />
+    <Compile Include="Utility\RenderText.cs" />
     <Compile Include="Utility\Shader.cs" />
   </ItemGroup>
   <ItemGroup>

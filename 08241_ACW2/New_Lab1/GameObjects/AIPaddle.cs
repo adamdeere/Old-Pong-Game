@@ -1,21 +1,17 @@
-﻿using OpenTK;
+﻿using PongGame.Components;
+using PongGame.GameObjects;
 
 namespace PongGame
 {
-    internal class AIPaddle : Paddle
+    internal class AIPaddle : GameObject
     {
-        public AIPaddle(int x, int y) : base(x, y)
+        public AIPaddle(string name, int paddle)
+            : base(name)
         {
-        }
-
-        public override void Update(float dt)
-        {
-            position += velocity;
-        }
-
-        public void Move(Vector2 ballPosition)
-        {
-            velocity.Y += (ballPosition.Y - position.Y) * 0.005f;
+            AddComponent(new ComponentModel(paddle));
+            AddComponent(new ComponentTransform(SceneManager.WindowWidth - 40, (int)(SceneManager.WindowHeight * 0.5)));
+            AddComponent(new ComponentAI());
+            AddComponent(new ComponentScoreData("AI", 600f));
         }
     }
 }

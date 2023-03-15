@@ -64,6 +64,7 @@ namespace PongGame.Systems
                     Draw(vao, position, camera);
                 }
             }
+            GL.UseProgram(0);
         }
 
         private void Draw(int vao_Handle, Vector2 pos, CameraObject cam)
