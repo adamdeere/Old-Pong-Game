@@ -69,6 +69,7 @@
     <Compile Include="Components\ComponentBallCollsion.cs" />
     <Compile Include="Components\ComponentPhysics.cs" />
     <Compile Include="Components\ComponentScoreData.cs" />
+    <Compile Include="Components\ComponentSecondInput.cs" />
     <Compile Include="Components\ComponentTransform.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="GameObjects\AIPaddle.cs" />

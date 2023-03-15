@@ -13,6 +13,9 @@ namespace PongGame.Systems.GameSystems
         private const ComponentTypes MASK =
              ComponentTypes.COMPONENT_INPUT;
 
+        private const ComponentTypes MASKTWO =
+             ComponentTypes.COMPONENT_INPUT;
+
         public void OnAction(EntityManager entityManager, KeyboardState keyState, float dt)
         {
             foreach (var entity in entityManager.Entities())
@@ -30,6 +33,27 @@ namespace PongGame.Systems.GameSystems
                                 pos.Y = SceneManager.WindowHeight;
                         }
                         if (keyState.IsKeyDown(Key.S))
+                        {
+                            pos.Y -= input.Speed * dt;
+                            if (pos.Y < 0)
+                                pos.Y = 0;
+                        }
+                        transform.Position = pos;
+                    }
+                }
+                else if ((entity.Mask & MASKTWO) == MASKTWO)
+                {
+                    if (entity.FindComponent(ComponentTypes.COMPONENT_INPUT) is ComponentInput input
+                     && entity.FindComponent(ComponentTypes.COMPONENT_TRANSFORM) is ComponentTransform transform)
+                    {
+                        Vector2 pos = transform.Position;
+                        if (keyState.IsKeyDown(Key.Up))
+                        {
+                            pos.Y += input.Speed * dt;
+                            if (pos.Y > SceneManager.WindowHeight)
+                                pos.Y = SceneManager.WindowHeight;
+                        }
+                        if (keyState.IsKeyDown(Key.Down))
                         {
                             pos.Y -= input.Speed * dt;
                             if (pos.Y < 0)

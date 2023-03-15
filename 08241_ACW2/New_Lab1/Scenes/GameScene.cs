@@ -44,10 +44,7 @@ namespace PongGame
             // Set the Render and Update delegates to the Update and Render methods of this class
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
-            // Set Keyboard events to go to a method in this class
-            sceneManager.Keyboard.KeyDown += Keyboard_KeyDown;
-
-            // ResetGame();
+           
             m_CamObject = new CameraObject(sceneManager.Width, sceneManager.Height);
             GL.ClearColor(Color.Black);
             entityManager = new EntityManager(m_CamObject);
@@ -82,23 +79,6 @@ namespace PongGame
             // add input systems
             systemManager.AddInputSystem(new SystemPlayerInput());
         }
-
-        public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
-        {
-            /*
-            switch (e.Key)
-            {
-                case Key.Up:
-                    paddlePlayer.Move(20);
-                    break;
-
-                case Key.Down:
-                    paddlePlayer.Move(-20);
-                    break;
-            }
-            */
-        }
-
         public void Update(FrameEventArgs e)
         {
             systemManager.ActionPlayerInputSystems(entityManager, Keyboard.GetState(), (float)e.Time);

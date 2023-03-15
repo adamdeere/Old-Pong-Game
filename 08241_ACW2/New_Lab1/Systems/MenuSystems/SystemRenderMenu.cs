@@ -7,7 +7,7 @@ namespace PongGame.Systems.MenuSystems
     {
         public string Name => "SystemRenderMenu";
 
-        private RenderText m_RenderText;
+        private readonly RenderText m_RenderText;
 
         public SystemRenderMenu()
         {
@@ -19,11 +19,11 @@ namespace PongGame.Systems.MenuSystems
             if (m_RenderText.BMP != null)
             {
                 m_RenderText.RenderTextOnScreen("welcome to pong", 0f, 0f);
-                m_RenderText.RenderTextOnScreen("1. single player game", 0f, 40f);
-                m_RenderText.RenderTextOnScreen("2. multyplayer game", 0f, 80f);
-                m_RenderText.RenderTextOnScreen("3. host networked game", 0f, 140f);
-                m_RenderText.RenderTextOnScreen("4 connect to networked game", 0f, 180f);
-                m_RenderText.RenderTextOnScreen("5. display high scores", 0, 220f);
+                m_RenderText.RenderTextOnScreen("1. Single player game", 0f, 40f);
+                m_RenderText.RenderTextOnScreen("2. Local multiplayer game", 0f, 80f);
+                m_RenderText.RenderTextOnScreen("3. Host networked multiplayer game", 0f, 140f);
+                m_RenderText.RenderTextOnScreen("4  Join networked multiplayer game", 0f, 180f);
+                m_RenderText.RenderTextOnScreen("5. Display high scores", 0, 220f);
             }
         }
     }
