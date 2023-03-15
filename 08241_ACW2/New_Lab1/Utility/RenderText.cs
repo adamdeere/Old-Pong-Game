@@ -10,8 +10,9 @@ namespace PongGame.Utility
         private readonly Bitmap textBMP;
         private readonly int textTexture;
         private readonly Graphics textGFX;
-
+        private readonly Font font;
         private readonly int width, height;
+        private readonly Rectangle rect;
 
         public RenderText(int width, int height)
         {
@@ -29,6 +30,8 @@ namespace PongGame.Utility
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textBMP.Width, textBMP.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero);
             GL.BindTexture(TextureTarget.Texture2D, 0);
             GL.Disable(EnableCap.Texture2D);
+            font = new Font("Arial", 20);
+            rect = new Rectangle(0, 0, textBMP.Width, textBMP.Height);
         }
 
         public Bitmap BMP
@@ -38,13 +41,13 @@ namespace PongGame.Utility
 
         public void RenderTextOnScreen(string text, float x, float y)
         {
-            textGFX.DrawString(text, new Font("Arial", 20), Brushes.White, x, y);
+            textGFX.DrawString(text, font, Brushes.White, x, y);
 
             // Enable the texture
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, textTexture);
 
-            BitmapData data = textBMP.LockBits(new Rectangle(0, 0, textBMP.Width, textBMP.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            BitmapData data = textBMP.LockBits(rect, ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, textBMP.Width, (int)textBMP.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
             textBMP.UnlockBits(data);
 

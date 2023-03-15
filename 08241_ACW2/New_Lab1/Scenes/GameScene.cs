@@ -5,6 +5,7 @@ using PongGame.Components;
 using PongGame.GameObjects;
 using PongGame.Managers;
 using PongGame.Systems;
+using PongGame.Systems.GameSystems;
 using PongGame.Utility;
 using System.Drawing;
 
@@ -66,7 +67,7 @@ namespace PongGame
             newEntity = new Entity("PaddleOne");
             newEntity.AddComponent(new ComponentModel(paddle));
             newEntity.AddComponent(new ComponentTransform(40, (int)(SceneManager.WindowHeight * 0.5)));
-            newEntity.AddComponent(new ComponentInput());
+            newEntity.AddComponent(new ComponentInput(100));
             newEntity.AddComponent(new ComponentScoreData("Player", 400f));
             entityManager.AddEntity(newEntity);
 
@@ -101,6 +102,8 @@ namespace PongGame
             systemManager.AddUpdateSystem(new SystemGoalDetection());
             systemManager.AddUpdateSystem(new SystemGameManager(sceneManager, m_RenderText));
             systemManager.AddUpdateSystem(new SystemAI());
+
+            systemManager.AddInputSystem(new SystemPlayerInput());
         }
 
         public void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -121,6 +124,7 @@ namespace PongGame
 
         public void Update(FrameEventArgs e)
         {
+            systemManager.ActionPlayerInputSystems(entityManager, Keyboard.GetState(), (float)e.Time);
             systemManager.ActionUpdateSystems(entityManager, (float)e.Time);
         }
 

@@ -10,6 +10,8 @@ namespace PongGame.Managers
         private readonly List<IRenderSystems> m_RenderSystems;
         private readonly List<IUpdateSystems> m_UpdateSystems;
         private readonly List<IMenuInputSystems> m_InputSystems;
+
+        private readonly List<IControllerInputSystems> m_PlayerInputSystems;
         private readonly SceneManager m_SceneManager;
 
         public SystemManager()
@@ -17,6 +19,7 @@ namespace PongGame.Managers
             m_RenderSystems = new List<IRenderSystems>();
             m_UpdateSystems = new List<IUpdateSystems>();
             m_InputSystems = new List<IMenuInputSystems>();
+            m_PlayerInputSystems = new List<IControllerInputSystems>();
         }
 
         public SystemManager(SceneManager sceneManager)
@@ -70,6 +73,21 @@ namespace PongGame.Managers
             // IUpdateSystem result = FindUpdateSystem(system.Name);
             // Debug.Assert(result != null, "System '" + system.Name + "' already exists");
             m_InputSystems.Add(system);
+        }
+
+        public void ActionPlayerInputSystems(EntityManager entityManager, KeyboardState state, float dt)
+        {
+            foreach (var system in m_PlayerInputSystems)
+            {
+                system.OnAction(entityManager, state, dt);
+            }
+        }
+
+        public void AddInputSystem(IControllerInputSystems system)
+        {
+            // IUpdateSystem result = FindUpdateSystem(system.Name);
+            // Debug.Assert(result != null, "System '" + system.Name + "' already exists");
+            m_PlayerInputSystems.Add(system);
         }
     }
 }

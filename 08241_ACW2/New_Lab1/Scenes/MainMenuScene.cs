@@ -4,14 +4,12 @@ using OpenTK.Input;
 using PongGame.Managers;
 using PongGame.Systems;
 using PongGame.Systems.MenuSystems;
-using PongGame.Utility;
 using System;
 
 namespace PongGame
 {
     internal class MainMenuScene : Scene, IScene
     {
-        private readonly RenderText m_RenderText;
         private SystemManager m_SystemManager;
         private EntityManager m_EntityManager;
 
@@ -24,7 +22,6 @@ namespace PongGame
             sceneManager.renderer = Render;
             sceneManager.updater = Update;
             sceneManager.loader = Load;
-            m_RenderText = new RenderText(SceneManager.WindowWidth, SceneManager.WindowHeight);
         }
 
         public void Load(EventArgs e)

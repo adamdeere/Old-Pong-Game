@@ -14,7 +14,8 @@
         {
             position.Y += dy;
             if (position.Y < 0) position.Y = 0;
-            else if (position.Y > SceneManager.WindowHeight) position.Y = SceneManager.WindowHeight;
+            else if (position.Y > SceneManager.WindowHeight)
+                position.Y = SceneManager.WindowHeight;
         }
     }
 }
